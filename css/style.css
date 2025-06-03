@@ -19,6 +19,10 @@ h1, h2, h3 {
   letter-spacing: .05em;
 }
 
+h2 {
+  font-size:3rem;
+}
+
 body {
   background: var(--bg-dark);
   color: var(--text-light);
@@ -434,11 +438,11 @@ section {
   inset: 0;                     /* stretch edge‑to‑edge */
   
   /* your new pixel‑art backdrop */
-  /* background: url("../assets/website_third_bg.png") center / cover no-repeat;
+  background: url("../assets/clouds bg 4k.png") center / cover no-repeat;
   
   /* optional subtle darkening so text stays legible */
   /* remove if you want the raw image */
-  background-color: rgba(0,0,0,0.35);
+  background-color: rgba(0,0,0,0.6);
   background-blend-mode: multiply;
   
   z-index: -1;                  /* put it *behind* everything inside .carousel-wrapper */
@@ -487,7 +491,7 @@ section {
 
 .slides { display:flex; transition: transform 0.7s ease-in-out; }
 .slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: center; }
-.slide-content { width:40%; padding-left:5rem; text-align: center; }
+.slide-content { width:40%; padding-left:5rem; text-align: right; }
 
 .slide-content h3 {
   display: inline-block;      /* shrink to fit content */
@@ -501,17 +505,16 @@ section {
   content: "";
   position: absolute;
   bottom: 0;                 /* right at the bottom of the text */
-  left: 50%;                 /* start at 50% of the h3’s width */
-  transform: translateX(-50%) scaleX(0);
+  left: 100%;                 /* start at 50% of the h3’s width */
+  transform: translateX(-100%) scaleX(1);
   transform-origin: center;  /* scale out from the center */
-  width: 200px;              /* length of the line—adjust as needed */
+  width: 300px;              /* length of the line—adjust as needed */
   height: 2px;               /* thickness of the line */
   background: var(--accent); /* your red color */
-  transition: transform 0.8s ease;
 }
 
 .slide-content.active h3::after {
-  transform: translateX(-50%) scaleX(1);
+  transform: translateX(-100%) scaleX(1);
 }
 
 .slide-content p { line-height:1.9; margin-top:1rem; font-size:1.25rem; }
