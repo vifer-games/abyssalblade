@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Abyssal Blade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500&family=Source+Serif+4:opsz,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- External JS -->
+  <script src="js/main.js" defer></script>
+  <!--preload videos-->
+  <link rel="preload" as="video" href="assets/AB_MP4_0.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="assets/AB_MP4_1.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="assets/AB_MP4_2.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="assets/AB_MP4_3.mp4" type="video/mp4">
+</head>
+<body>
+  <section class="hero" aria-label="Abyssal Blade Key Art">
+    <div class="particles"></div>
+  
+    <!-- Wrap image and overlay together -->
+    <div class="hero-bg-wrapper">
+      <img src="assets/AbyssalBlade_4k.png" alt="Abyssal Blade Key Art" class="hero-bg" />
+      <div class="hero-fade-overlay"></div>
+    </div>
+  
+    <div class="hero-content reveal">
+      <img src="assets/AB_with_shadow.png" alt="Abyssal Blade Logo" class="hero-logo" />
+      <br>
+      <button class="cta-btn">Play Now</button>
+    </div>
+  </section>
+  
+  
+
+  <section class="trailer reveal smoke-overlay-blue pulse-overlay" aria-label="Game Trailer">
+    <h2>Prologue to the Abyss</h2>
+
+    <!-- Vertical side label -->
+    <span class="trailer-label" aria-hidden="true">TRAILER</span>
+  
+    <!-- ▾ new wrapper just for the decorative frame ▾ -->
+    <div class="video-frame">
+      <!-- 1) Wrapper for both poster and video -->
+      <div class="video-wrapper">
+
+        <!-- 2) Static poster image on top -->
+        <img
+          src="assets/1.png"
+          alt="Trailer Poster"
+          class="video-poster"
+        />
+    
+        <!-- 3) Custom “Play” button overlay -->
+        <img
+          src="assets/website_play_button.png"
+          alt="Play Trailer"
+          class="video-play-btn"
+        />
+    
+        <!-- 4) The actual <video> element, initially paused/invisible -->
+        <video
+          src="assets/videoplayback.mp4"
+          class="video-element"
+          preload="metadata"
+          playsinline
+          webkit-playsinline
+          controls
+          style="display: none;"
+        >
+          Your browser doesn’t support HTML5 video.
+        </video>
+      </div>
+
+        <!-- purely decorative overlay -->
+        <img src="assets/website_video border.png"
+        alt="" aria-hidden="true"
+        class="video-frame-border">
+    </div>
+
+  </section>
+  
+  
+
+  <section class="carousel-wrapper reveal smoke-overlay pulse-overlay" aria-label="Gameplay Showcase">
+    <h2 class="reveal">Fragments of the Abyss</h2>
+    <div class="carousel" id="carousel">
+      <div class="slides">
+        <div class="slide">
+          <div class="gif-wrapper">
+            <video class="gif"                 
+              src="assets/AB_MP4_0.mp4"    
+              autoplay loop muted playsinline webkit-playsinline>
+            </video>
+            <img class="gif-border" src="assets/image_border.png"    aria-hidden="true">
+          </div>
+          <div class="slide-content">
+            <h3>THE FRAGILE WANDERER</h3>
+            <p class="intro">
+              You awaken in the void, burdened by GRIEF. At last, you find the strength to rise—but the path ahead won’t be easy:
+              <strong>you only have 1 HP.</strong> Take up your blade and break free from the abyss.
+            </p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="gif-wrapper">
+            <video class="gif"                 
+            src="assets/AB_MP4_1.mp4"    
+            autoplay loop muted playsinline webkit-playsinline>
+            </video>
+            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
+          </div>
+          <div class="slide-content">
+            <h3>JOURNEY TO DEFEAT GRIEF</h3>
+            <p>Face five distinct bosses, each embodying <em>Kübler-Ross</em>’s stages of Grief—Denial, Anger, Bargaining, Depression, and Acceptance. Each encounter explores a different emotional struggle, reflected through unique mechanics and gimmicks.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="gif-wrapper">
+            <video class="gif"                 
+            src="assets/AB_MP4_2.mp4"    
+            autoplay loop muted playsinline webkit-playsinline>
+            </video>
+            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
+          </div>
+          <div class="slide-content">
+            <h3>SURVIVE MERCILESS BOSS FIGHTS</h3>
+            <p>Bosses take direct inspiration from high-end MMORPG raids, featuring cast bars, telegraphed AOEs, and puzzle-like mechanics that force you to think outside of the box and act decisively.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="gif-wrapper">
+            <video class="gif"                 
+            src="assets/AB_MP4_3.mp4"    
+            autoplay loop muted playsinline webkit-playsinline>
+            </video>
+            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
+          </div>
+          <div class="slide-content">
+            <h3>OPTIMIZE YOUR DAMAGE</h3>
+            <p>The Wanderer generates mana with every strike, unleashing a full gauge to enter a brief burst window of rapid, high-damage attacks. Time your bursts carefully to deal maximum damage when openings appear!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- ╭─ Carousel overlay ─╮ -->
+    <div class="carousel-overlay">
+      <!-- ◄ previous -->
+      <button id="prev" class="nav-btn" aria-label="Previous slide">
+        <img src="assets/website_carousel_left.png"        alt="" class="state idle">
+        <img src="assets/website_carousel_left_hover.png"  alt="" class="state hover">
+      </button>
+
+      <!-- dynamic gem‑strip -->
+      <img id="gem-strip"
+          src="assets/website_carousel_gem_1.png"
+          alt="Slide position"
+          class="gem-strip">
+
+      <!-- ► next -->
+      <button id="next" class="nav-btn" aria-label="Next slide">
+        <img src="assets/website_carousel_right.png"       alt="" class="state idle">
+        <img src="assets/website_carousel_right_hover.png" alt="" class="state hover">
+      </button>
+    </div>
+    <!-- ╰─────────────────────╯ -->
+
+  </section>
+<!-- Floating Dev Notes button -->
+<a href="dev-notes.html" class="dev-btn" target="_blank" rel="noopener" aria-label="Developer Notes">
+  📝
+</a>
+</body>
+</html>

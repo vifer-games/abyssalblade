@@ -1,0 +1,592 @@
+:root {
+  --accent: #e40927;
+  --text-light: #f5f5f5;
+  --bg-dark: #090310;
+  --frame-radius: 28px; 
+  --video-frame-pad: 15px;
+}
+
+/* ---------------- base styles ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Serif 4", serif;
+}
+
+h1, h2, h3 {
+  font-family: "Cinzel", serif;
+  letter-spacing: .05em;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  scroll-behavior: smooth;
+}
+
+section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+
+.pulse-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 0, 0, 0.15), transparent 70%);
+  animation: pulseField 5s infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes pulseField {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+/* Ensure the parent can contain the pseudo-element */
+.pulse-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------------- hero ---------------- */
+.hero {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin-top:2rem;
+  pointer-events: none;
+}
+
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Fade effect toward the sides */
+.hero-fade-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(9, 3, 16, 0.9) 0%,
+    rgba(9, 3, 16, 0) 40%,
+    rgba(9, 3, 16, 0) 60%,
+    rgba(9, 3, 16, 0.9) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 90%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.hero-logo {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.7));
+}
+
+/* call‑to‑action button */
+.cta-btn {
+  position: relative;
+  margin-top: 3rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--accent), #800018);
+  border: 2px solid var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s ease;
+  letter-spacing: 1px;
+  z-index: 10;
+  animation: pulse-glow 2s infinite;
+  box-shadow: 0 0 15px rgba(228, 9, 46, 0.4);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+}
+
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -100%;
+  background: rgba(255,255,255,0.15);
+  transform: skewX(-45deg);
+  transition: left 0.4s ease;
+  z-index: 0;
+}
+
+.cta-btn:hover::before { left: 100%; }
+
+@keyframes pulse-glow {
+  0%   { box-shadow: 0 0 5px rgba(228,  9, 46, 0.3); }
+  50%  { box-shadow: 0 0 20px rgba(228, 9, 46, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(228, 9, 46, 0.3); }
+}
+
+/* ---------------- particles ---------------- */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  animation: float 18s linear infinite;
+  filter: blur(2px);
+}
+
+@keyframes float {
+  0%   { transform: translateY(0)   translateX(0)  scale(1);   opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(-10vw) scale(0.3); opacity: 0; }
+}
+
+/* ---------------- trailer ---------------- */
+  /* ---------------- trailer smoke overlay ---------------- */
+.trailer {
+  position: relative;        /* establishes containing‑block */
+  z-index: 1;                /* stays above page background */
+  overflow: hidden;          /* hides overlay edges when it scrolls */
+}
+
+/* Option A – rotate the word sideways */
+.trailer-label{
+  position: absolute;
+  right: 16rem;
+  top: 48%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+  z-index: 50;
+
+  font-family: "Cinzel", serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.35em;
+  color: var(--text-light);
+  pointer-events: none;         /* don’t block clicks on the video */
+  user-select: none;
+}
+
+/* Optional: hide on narrow screens */
+@media (max-width: 700px){
+  .trailer-label{ display:none; }
+}
+
+/* pseudo‑element that holds the smoke */
+.smoke-overlay::before{
+  content: "";
+  position: absolute;
+  inset: 0;                  /* full‑cover */
+  background: url("../assets/smoke.png") center / cover no-repeat;
+  
+  /* optional tint & blending so text stays readable */
+  opacity: 0.5;             /* tweak strength here */
+  mix-blend-mode: screen;    /* makes the smoke brighter on dark bg
+                                → try 'overlay' or remove if unwanted */
+
+  /* NEW — push the hue to red */
+  filter: grayscale(1) brightness(.9) sepia(1) hue-rotate(-10deg) saturate(8);
+  /*  ▲        ▲         ▲           ▲             ▲
+    remove    darken    prep       shift       deepen colour */
+  
+  pointer-events: none;      /* clicks pass through */
+  z-index: -1;               /* sits *behind* everything inside .trailer */
+}
+
+/* be sure the base section is a containing‑block */
+.smoke-overlay{                       /* any element you assign it to */
+  position:relative;                  /* keeps the ::before inside */
+  overflow:hidden;                    /* hides the edges on scroll */
+}
+
+/* Section that needs the smoke */
+.smoke-overlay-blue{
+  position: relative;
+  overflow: hidden;   /* clip smoke edges */
+}
+
+/* Pseudo‑element that paints the smoke */
+.smoke-overlay-blue::before{
+  content: "";
+  position: absolute;
+  inset: 0;                         /* full cover */
+  background: url("../assets/smoke.png") center / cover no-repeat;
+
+  /* tint → blue */
+  filter:
+      grayscale(1)
+      brightness(.9)
+      sepia(1)
+      hue-rotate(-180deg)   /* push toward cyan/blue */
+      saturate(8);
+
+  opacity: .5;
+  mix-blend-mode: screen;           /* optional */
+
+  /* flip vertically (top ↔ bottom) */
+  transform: scaleY(-1);            /* OR rotateX(180deg) */
+
+  z-index: 0;      /* sits above the section bg, below the content */
+  pointer-events: none;
+}
+
+
+.trailer h2 {
+  margin-bottom: 2rem;
+}
+
+/* -------------- decorative video frame -------------- */
+.video-frame {
+  position: relative;          /* create containing BFC */
+  width: 80vw;
+  max-width: 960px;
+  aspect-ratio: 16/9;          /* keeps the same ratio */
+  margin: 0 auto;
+}
+
+/* inner video shrinks on all four sides by the pad amount */
+.video-frame > .video-wrapper{
+  position:absolute;
+  inset:var(--video-frame-pad);   /* top/right/bottom/left */
+  width:auto;                     /* let the inset control size */
+  height:auto;
+}
+
+/* make sure the poster / play‑btn / video still fill that space */
+.video-wrapper .video-poster,
+.video-wrapper .video-element{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* the border PNG sits over everything, ignores clicks */
+.video-frame-border {
+  position: absolute;
+  inset: 0;                    /* top:0 right:0 bottom:0 left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* stretches edge‑to‑edge */
+  pointer-events: none;        /* play‑button still clickable */
+  z-index: 30;                 /* > poster (10) & play‑button (20) */
+}
+
+/* ===== 1) Video wrapper (takes the place of iframe) ===== */
+.video-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 80vw;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ===== 2) Poster image (on top of video) ===== */
+.video-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* ===== 3) Custom play button ===== */
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+
+  /* Remove any background/font settings: */
+  background: none;
+  border: none;
+  padding: 0;
+
+  /* Ensure the image is clickable: */
+  cursor: pointer;
+
+  /* Optional: add a slight “hover” scale for feedback */
+  transition: transform 0.2s ease;
+}
+
+/* On hover, gently increase size */
+.video-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* ===== 4) Actual video element, hidden until play ===== */
+.video-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 5;
+  background: #000;
+  display: none; /* will be shown via JS when user clicks Play */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+}
+
+/* ===== 5) Responsive tweaks for smaller screens ===== */
+@media (max-width: 900px) {
+  .video-wrapper {
+    width: 90vw;
+  }
+  .video-play-btn {
+    font-size: 2.5rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .video-wrapper {
+    width: 100vw;
+    margin: 0;
+  }
+  .video-play-btn {
+    font-size: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* ---------------- carousel ---------------- */
+
+.carousel {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  overflow: hidden;
+  margin-top: 3rem;
+  margin-bottom: 10rem;
+}
+
+/* ------------- carousel background ------------- */
+.carousel-wrapper{
+  position: relative;           /* create containing‑block */
+  z-index: 1;                   /* sits above page bg, below its ::before */
+  overflow: hidden;             /* hides any spill‑over */
+}
+
+/* full‑cover background via pseudo‑element */
+.carousel-wrapper::before{
+  content: "";
+  position: absolute;
+  inset: 0;                     /* stretch edge‑to‑edge */
+  
+  /* your new pixel‑art backdrop */
+  /* background: url("../assets/website_third_bg.png") center / cover no-repeat;
+  
+  /* optional subtle darkening so text stays legible */
+  /* remove if you want the raw image */
+  background-color: rgba(0,0,0,0.35);
+  background-blend-mode: multiply;
+  
+  z-index: -1;                  /* put it *behind* everything inside .carousel-wrapper */
+}
+
+/* make sure the inner .carousel content stays above */
+.carousel{ z-index: 2; position: relative; }
+
+/* ---------------- GIF + border container ---------------- */
+.gif-wrapper {
+  position: relative;
+  width: 40%;               /* same as your old .slide .gif width */
+  aspect-ratio: 1194 / 814; /* match the border PNG’s pixel dimensions */
+  overflow: hidden;         /* hide any parts of the GIF that stick out */
+}
+
+/* This makes the GIF fill the entire wrapper, cropping as needed */
+.gif-wrapper .gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Add just the two rounded corners: */
+  border-top-right-radius: var(--frame-radius);
+  border-bottom-left-radius: var(--frame-radius);
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: block;
+  z-index: 1; /* underneath the border overlay */
+}
+
+/* The border PNG should sit on top, exactly lining up */
+.gif-wrapper .gif-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* ensure it exactly covers the wrapper */
+  pointer-events: none; /* clicks “pass through” to underlying elements */
+  z-index: 2;           /* sits above the GIF */
+}
+
+
+.slides { display:flex; transition: transform 0.7s ease-in-out; }
+.slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: center; }
+.slide-content { width:40%; padding-left:5rem; text-align: center; }
+
+.slide-content h3 {
+  display: inline-block;      /* shrink to fit content */
+  position: relative;         /* for the ::after to position itself */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.slide-content h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;                 /* right at the bottom of the text */
+  left: 50%;                 /* start at 50% of the h3’s width */
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;  /* scale out from the center */
+  width: 200px;              /* length of the line—adjust as needed */
+  height: 2px;               /* thickness of the line */
+  background: var(--accent); /* your red color */
+  transition: transform 0.8s ease;
+}
+
+.slide-content.active h3::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.slide-content p { line-height:1.9; margin-top:1rem; font-size:1.25rem; }
+
+/* ── overlay container ───────────────────────────── */
+.carousel-overlay{
+  position:absolute; left:50%; bottom:8rem;
+  transform:translateX(-50%);
+  display:flex; align-items:center; gap: 0rem;
+  pointer-events:none;          /* overlay ignores clicks   */
+  z-index:30;
+}
+
+/* nudge each arrow 7 px inward over the strip  */
+#prev{ margin-right:-7px; }
+#next{ margin-left :-7px; }
+.carousel-overlay > *{ pointer-events:auto; } /* buttons ARE clickable */
+
+/* ---- gem‑strip ---- */
+.gem-strip{
+  height:auto;                 /* take the PNG’s own height (≈40 px) */
+  width:auto;                  /* preserve aspect ratio               */
+  image-rendering:pixelated;   /* keep the pixels crisp               */
+}
+
+/* ---- arrow buttons ---- */
+.nav-btn{
+  position:relative;
+  width:75px; height:75px;      /* same square size         */
+  padding:0; border:none; background:none; cursor:pointer;
+}
+.nav-btn img{                   /* stack the two frames     */
+  position:absolute; inset:0;
+  width:100%; height:100%; image-rendering:pixelated;
+  transition:opacity .15s;
+}
+.nav-btn .hover { opacity:0; }
+.nav-btn:hover .hover { opacity:1; }
+.nav-btn:hover .idle  { opacity:0; }
+
+
+/* ---------------- dev notes button ---------------- */
+.dev-btn {
+  position:fixed; bottom:2rem; right:2rem; width:52px; height:52px; border-radius:50%; background:var(--accent); border:2px solid #fff2; color:#fff; font-size:1.25rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:999; box-shadow:0 0 12px rgba(0,0,0,0.5); transition:transform 0.25s ease;
+}
+.dev-btn:hover { transform:scale(1.08); }
+
+.dev-close { position:absolute; top:0.6rem; right:0.6rem; background:none; border:none; color:var(--text-light); font-size:1.2rem; cursor:pointer; }
+
+.dev-link { display:inline-block; margin-top:1rem; color:var(--accent); text-decoration:underline; }
+
+/* ---------------- responsive breakpoints ---------------- */
+@media (max-width:900px) {
+  .slide { flex-direction:column; align-items:center; }
+  .slide img { width:90%; }
+  .slide-content { width:100%; padding-left:0; text-align:center; }
+  .slide-content p { font-size:1.1rem; }
+}
+
+@media (max-width:600px) {
+  .hero-logo { max-width:88vw; }
+  .tagline    { font-size:1rem; }
+  .cta-btn    { padding:0.75rem 2rem; font-size:0.9rem; }
+  .trailer h2,
+  .carousel-wrapper h2 { font-size:1.45rem; position: relative; display: inline-block;}
+  .slide-content h3 { font-size:1.25rem; }
+  .slide-content p  { font-size:0.95rem; }
+  .slide { gap:1.5rem; }
+  .gem         { width:36px; height:36px; }
+  .dev-btn {
+    width:44px;
+    height:44px;
+    font-size:1rem;
+    bottom:1rem;
+    right:1rem;
+  }
+}
