@@ -1,7 +1,7 @@
 :root {
   --accent: #e40927;
   --text-light: #f5f5f5;
-  --bg-dark: #090310;
+  --bg-dark: #12121b;
   --frame-radius: 28px; 
   --video-frame-pad: 15px;
 }
@@ -352,7 +352,6 @@ section {
   z-index: 20;
 
   /* Remove any background/font settings: */
-  background: none;
   border: none;
   padding: 0;
 
@@ -429,10 +428,7 @@ section {
   content: "";
   position: absolute;
   inset: 0;                     /* stretch edge‑to‑edge */
-  
-  /* your new pixel‑art backdrop */
-  background: url("../assets/clouds bg 4k.png") center / cover no-repeat;
-  
+  background: url("../assets/clouds bg 4k.png") center / cover no-repeat fixed;
   /* optional subtle darkening so text stays legible */
   /* remove if you want the raw image */
   background-color: rgba(0,0,0,0.6);
@@ -547,6 +543,68 @@ section {
 .nav-btn .hover { opacity:0; }
 .nav-btn:hover .hover { opacity:1; }
 .nav-btn:hover .idle  { opacity:0; }
+
+/* ─────────────── Footer wrapper ─────────────── */
+.site‑footer{
+  display:flex;
+  flex-direction:column;   /* stack items vertically           */
+  align-items:center;      /* center EVERYTHING horizontally   */
+  padding:3rem;     /* top / bottom breathing‑room      */
+  text-align:center;
+  gap:2rem;
+}
+
+/* studio logo */
+.footer‑logo{
+  width:16rem;             /* tweak to taste; auto height      */
+  height:auto;
+}
+
+/* legal line */
+copyright,
+.site‑footer small{        /* in case you already used <p>     */
+  font-size:.72rem;
+  line-height:1.2;
+  opacity:.75;
+  letter-spacing:.03em;
+}
+
+/* ───────────── Social icon bar ───────────── */
+.socials{
+  display:flex;
+  justify-content:center;      /* centers whole row */
+  gap:2.2rem;                  /* even spacing */
+  flex-wrap:nowrap;         /* ← *forces* a single line */
+  flex-direction:row;
+}
+
+.socials a{
+  display:inline-block;
+  width:48px; height:48px;     /* exact same size for every icon */
+  flex:0 0 48px;               /* no shrinking / growing         */
+}
+
+.socials img{
+  width:100%;
+  height:100%;
+  object-fit:contain;          /* keeps the original proportions */
+  /* 🔸 make everything white/gray: */
+  filter:
+    grayscale(1)   /* strip all colour                */
+    brightness(0)  /* make it full‑black               */
+    invert(1);     /* then invert → full‑white         */
+  transition:filter .25s;
+}
+
+.socials a:hover   img,
+.socials a:focus   img{
+  filter:none;                 /* full‑color on hover / focus */
+}
+
+@media (max-width:460px){
+  .socials a      { flex:0 0 38px; width:38px; height:38px; }
+  .socials        { gap:1.2rem; }      /* smaller gap      */
+}
 
 
 /* ---------------- dev notes button ---------------- */
