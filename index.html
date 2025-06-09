@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500&family=Source+Serif+4:opsz,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
@@ -15,6 +15,7 @@
   <!-- External JS -->
   <script src="js/main.js" defer></script>
   <!--preload videos-->
+  <link rel="preload" as="video" href="assets/AB_Teaser_Ver_5.mp4" type="video/mp4">
   <link rel="preload" as="video" href="assets/AB_MP4_0.mp4" type="video/mp4">
   <link rel="preload" as="video" href="assets/AB_MP4_1.mp4" type="video/mp4">
   <link rel="preload" as="video" href="assets/AB_MP4_2.mp4" type="video/mp4">
@@ -96,8 +97,9 @@
   </section>
   
 
-  <section class="carousel-wrapper reveal" aria-label="Gameplay Showcase">
-    <h2 class="reveal">Let the Trial Begin</h2>
+  <section class="carousel-wrapper" aria-label="Gameplay Showcase">
+    <div class="carousel-bg" aria-hidden="true"></div>
+    <h2>Let the Trial Begin</h2>
     <div class="carousel" id="carousel">
       <div class="slides">
         <div class="slide">

@@ -88,6 +88,25 @@ if (window.gsap && window.ScrollTrigger){
 
 
   // ------------ 4) CAROUSEL LOGIC ------------
+
+  if (window.gsap && window.ScrollTrigger){
+    const carousel = document.querySelector('.carousel-wrapper');
+    const bgLayer = document.querySelector('.carousel-bg');
+  
+    if (carousel && bgLayer){
+      gsap.to(bgLayer, {
+        yPercent: -20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: carousel,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
+  }  
+  
   /* ---------- 1. handles ---------- */
   const slides      = document.querySelector('.slides');
   const slideCount  = document.querySelectorAll('.slide').length;

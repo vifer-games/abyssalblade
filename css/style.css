@@ -11,15 +11,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Source Serif 4", serif;
+  font-family: 'Merriweather', serif;
 }
 
-h1, h2, h3 {
-  font-family: "Cinzel", serif;
-  letter-spacing: .05em;
+h1, h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-kerning: none;               /* modern browsers */
+  /* fallback for others */
+  font-feature-settings: "kern" 0;
+  letter-spacing: 0.04em; 
+  font-size:2.4rem;
 }
 
-h2 {
+h3 {
+  font-family: 'Merriweather', serif;
   font-size:3rem;
 }
 
@@ -35,7 +41,7 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10rem 1rem;
+  padding: 8rem;
 }
 
 .pulse-overlay::before {
@@ -215,7 +221,7 @@ section {
   background:linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0.6)),   /* tint */
   url("../assets/bargain_arena_full.png") center / cover no-repeat;
   will-change:transform;
-  z-index:-1;            /* 🔑  put *behind* the text */
+  z-index:-1;          
   pointer-events:none;   /* clicks go through */
 }
 
@@ -241,7 +247,7 @@ section {
 }
 
 .about-inner h2{
-  font-family:"Cinzel",serif;
+  font-family:"Cinzel Decorative",serif;
   font-size: 2.4rem;
   margin-bottom:1.5rem;
 }
@@ -274,7 +280,7 @@ section {
   transform-origin: right center;
   z-index: 50;
 
-  font-family: "Cinzel", serif;
+  font-family: "Cinzel Decorative", serif;
   font-size: 1.9rem;
   letter-spacing: 0.35em;
   color: var(--text-light);
@@ -480,7 +486,7 @@ section {
   max-width: 1200px;
   overflow: hidden;
   margin-top: 3rem;
-  margin-bottom: 10rem;
+  margin-bottom: 0rem;
 }
 
 /* ------------- carousel background ------------- */
@@ -490,19 +496,24 @@ section {
   overflow: hidden;             /* hides any spill‑over */
 }
 
-/* full‑cover background via pseudo‑element */
-.carousel-wrapper::before{
-  content: "";
+.carousel-bg {
   position: absolute;
-  inset: 0;                     /* stretch edge‑to‑edge */
-  background: url("../assets/clouds bg 4k.png") center / cover no-repeat fixed;
-  /* optional subtle darkening so text stays legible */
-  /* remove if you want the raw image */
+  inset: 0;
+
+  /*  ❯  push 10 % outside the box top & bottom  */
+  top   : 0%;
+  bottom: -60%;
+  left  : 0;
+  right : 0;
+
+  background: url("../assets/clouds bg 4k.png") center / cover no-repeat;
   background-color: rgba(0,0,0,0.6);
   background-blend-mode: multiply;
-  
-  z-index: -1;                  /* put it *behind* everything inside .carousel-wrapper */
+  z-index: -1;
+  will-change: transform;
+  transition: background-position 0.2s ease-out;
 }
+
 
 /* make sure the inner .carousel content stays above */
 .carousel{ z-index: 2; position: relative; }
@@ -510,7 +521,7 @@ section {
 /* ---------------- GIF + border container ---------------- */
 .gif-wrapper {
   position: relative;
-  width: 40%;               /* same as your old .slide .gif width */
+  width: 50%;               /* same as your old .slide .gif width */
   aspect-ratio: 1194 / 814; /* match the border PNG’s pixel dimensions */
   overflow: hidden;         /* hide any parts of the GIF that stick out */
 }
@@ -547,12 +558,12 @@ section {
 
 .slides { display:flex; transition: transform 0.7s ease-in-out; }
 .slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: center; }
-.slide-content { width:40%; padding-left:5rem; text-align: right; }
+.slide-content { width:45%; padding-left:3rem; text-align: right; }
 
 .slide-content h3 {
   display: inline-block;      /* shrink to fit content */
   position: relative;         /* for the ::after to position itself */
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
 }
@@ -577,7 +588,7 @@ section {
 
 /* ── overlay container ───────────────────────────── */
 .carousel-overlay{
-  position:absolute; left:50%; bottom:8rem;
+  position:absolute; left:50%; bottom:2rem;
   transform:translateX(-50%);
   display:flex; align-items:center; gap: 0rem;
   pointer-events:none;          /* overlay ignores clicks   */
