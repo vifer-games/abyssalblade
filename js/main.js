@@ -38,6 +38,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* -------------------------------------------
+   Parallax background – About‑game section
+-------------------------------------------*/
+if (window.gsap && window.ScrollTrigger){
+  const section = document.querySelector('.about-game');
+  const bgLayer = document.querySelector('.about-game__bg');
+
+  if (section && bgLayer){
+    gsap.to(bgLayer, {
+      yPercent: -20,         // move up 25 % of its own height
+      ease: 'none',
+      scrollTrigger:{
+        trigger: section,
+        start: 'top bottom',  // when section enters viewport
+        end:   'bottom top',  // when it leaves
+        scrub: true           // tie to scrollbar for smoothness
+      }
+    });
+  }
+}
+
+
   // 3) “Custom Poster + Play” logic for the trailer
   const wrapper = document.querySelector('.video-wrapper');
   const poster  = document.querySelector('.video-poster');

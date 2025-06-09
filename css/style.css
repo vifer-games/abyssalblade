@@ -190,6 +190,73 @@ section {
   100% { transform: translateY(-120vh) translateX(-10vw) scale(0.3); opacity: 0; }
 }
 
+/* ───────────── About‑the‑Game  ───────────── */
+/* ---------- container ---------- */
+.about-game{
+  position:relative;
+  min-height:80vh;                       /* take space */
+  padding:6rem 1rem;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;                       /* clip bg edges */
+  text-align:center;                     /* narrow centered copy */
+}
+
+/* ---------- scrolling backdrop ---------- */
+.about-game__bg{
+  position:absolute;
+  inset:0;
+
+  /*  ❯  push 10 % outside the box top & bottom  */
+  top   : 0%;
+  bottom: -50%;
+  left  : 0;
+  right : 0;
+
+  background:linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0.6)),   /* tint */
+  url("../assets/bargain_arena_full.png") center / cover no-repeat;
+  will-change:transform;
+  z-index:-1;            /* 🔑  put *behind* the text */
+  pointer-events:none;   /* clicks go through */
+}
+
+/* ---------- inner text block ---------- */
+.about-game__inner{
+  position:relative;     /* create stack‑context above z:-1 bg */
+  max-width:42rem;
+  z-index:1;
+}
+
+
+/* subtle darken + tint so text stays readable */
+.about-game::before{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  z-index:-0;                     /* beneath the content        */
+}
+
+.about-inner{
+  max-width: 700px;               /* “narrow” column            */
+  text-align:center;
+}
+
+.about-inner h2{
+  font-family:"Cinzel",serif;
+  font-size: 2.4rem;
+  margin-bottom:1.5rem;
+}
+
+.about-inner p{
+  font-size:1.15rem;
+  line-height:1.7;
+}
+
+/* —— optional: smoother on mobile —— */
+@media (max-width:600px){
+  .about-inner h2{ font-size:1.8rem; }
+  .about-inner p { font-size:1rem; }
+}
+
 /* ---------------- trailer ---------------- */
   /* ---------------- trailer smoke overlay ---------------- */
 .trailer {
