@@ -38,6 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  if (window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+  
+    gsap.to(document.documentElement, {
+      "--wash": 0.55,
+      ease: "none",
+      scrollTrigger:{
+        trigger:  ".site",
+        start:    "top top",
+        end:      "bottom top",
+        scrub:    true
+      }
+    });
+  }  
+
   /* -------------------------------------------
    Parallax background – About‑game section
 -------------------------------------------*/

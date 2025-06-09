@@ -4,6 +4,7 @@
   --bg-dark: #12121b;
   --frame-radius: 28px; 
   --video-frame-pad: 15px;
+  --wash: 0.3;
 }
 
 /* ---------------- base styles ---------------- */
@@ -30,10 +31,44 @@ h3 {
 }
 
 body {
-  background: var(--bg-dark);
   color: var(--text-light);
   scroll-behavior: smooth;
+  background:#090310
 }
+
+/* ------------------------------------------------------------------
+   GLOBAL illustration – fixed behind .site only
+------------------------------------------------------------------ */
+.site{                               /* the wrapper we just added   */
+  position:relative;
+  z-index:0;                         /* create containing‑block     */
+}
+
+/* ───────── global scrolling artwork ───────── */
+.site::before{
+  content:"";
+  position:fixed;                 /* sticks to viewport         */
+  top:0; left:0; width:100%; height:100%;
+  background:url("../assets/AbyssalBlade_4k.png") center / cover no-repeat;
+  z-index:-1;                     /* behind every section       */
+
+  /* GSAP vars you’re animating */
+  opacity:var(--illus-op,1);
+  transform:translateY(var(--illus-y,0));
+  will-change:transform,opacity;
+}
+
+/* optional dark‑wash that ramps up while scrolling
+   (keep your GSAP code that animates --wash )                   */
+.site::after{
+  content:"";
+  position:fixed; inset:0;
+  background:rgba(0,0,0,var(--wash,0));   /* 0 → 0.55 etc.        */
+  mix-blend-mode:multiply;                /* remove if unwanted   */
+  z-index:-1;
+  pointer-events:none;
+}
+
 
 section {
   width: 100%;
@@ -74,6 +109,7 @@ section {
 /* ---------------- hero ---------------- */
 .hero {
   position:relative;
+  min-height: 100vh;
   width:100%;
   overflow:visible;            /* allow scrolling past the bottom */
   display:flex;
@@ -115,14 +151,6 @@ section {
   max-width: 90%;
   text-align: center;
   padding: 4rem;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
 }
 
 .hero-logo {
@@ -205,24 +233,6 @@ section {
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;                       /* clip bg edges */
   text-align:center;                     /* narrow centered copy */
-}
-
-/* ---------- scrolling backdrop ---------- */
-.about-game__bg{
-  position:absolute;
-  inset:0;
-
-  /*  ❯  push 10 % outside the box top & bottom  */
-  top   : 0%;
-  bottom: -50%;
-  left  : 0;
-  right : 0;
-
-  background:linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0.6)),   /* tint */
-  url("../assets/bargain_arena_full.png") center / cover no-repeat;
-  will-change:transform;
-  z-index:-1;          
-  pointer-events:none;   /* clicks go through */
 }
 
 /* ---------- inner text block ---------- */
@@ -496,24 +506,6 @@ section {
   overflow: hidden;             /* hides any spill‑over */
 }
 
-.carousel-bg {
-  position: absolute;
-  inset: 0;
-
-  /*  ❯  push 10 % outside the box top & bottom  */
-  top   : 0%;
-  bottom: -60%;
-  left  : 0;
-  right : 0;
-
-  background: url("../assets/clouds bg 4k.png") center / cover no-repeat;
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-  z-index: -1;
-  will-change: transform;
-  transition: background-position 0.2s ease-out;
-}
-
 
 /* make sure the inner .carousel content stays above */
 .carousel{ z-index: 2; position: relative; }
@@ -623,24 +615,28 @@ section {
 .nav-btn:hover .idle  { opacity:0; }
 
 /* ─────────────── Footer wrapper ─────────────── */
-.site‑footer{
+.footer{
+  background:#090310;       
+  color:var(--text-light);
   display:flex;
   flex-direction:column;   /* stack items vertically           */
   align-items:center;      /* center EVERYTHING horizontally   */
   padding:3rem;     /* top / bottom breathing‑room      */
   text-align:center;
   gap:2rem;
+  position:relative;
+  z-index:0;
 }
 
 /* studio logo */
 .footer‑logo{
-  width:16rem;             /* tweak to taste; auto height      */
+  width:12rem;             /* tweak to taste; auto height      */
   height:auto;
 }
 
 /* legal line */
 copyright,
-.site‑footer small{        /* in case you already used <p>     */
+.footer small{        /* in case you already used <p>     */
   font-size:.72rem;
   line-height:1.2;
   opacity:.75;
