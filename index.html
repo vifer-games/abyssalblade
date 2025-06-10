@@ -23,8 +23,6 @@
 </head>
 <body>
   <section class="hero" aria-label="Abyssal Blade Key Art">
-    <div class="particles"></div>
-  
     <!-- Wrap image and overlay together -->
     <div class="hero-bg-wrapper">
       <img src="assets/AbyssalBlade_4k.png" alt="Abyssal Blade Key Art" class="hero-bg" />
@@ -54,46 +52,37 @@
     </div>
   </section>
 
-  <section class="trailer reveal smoke-overlay-blue" aria-label="Game Trailer">
-    <!-- ▾ new wrapper just for the decorative frame ▾ -->
-    <div class="video-frame">
-      <!-- 1) Wrapper for both poster and video -->
-      <div class="video-wrapper">
+  <section class="trailer reveal" aria-label="Game Trailer">
+    <!-- background teaser (autoplays, loops, muted) -->
+    <section class="teaser">
+      <video class="teaser-bg"
+        src="assets/AB_short_Teaser.mp4"
+        autoplay muted loop playsinline webkit-playsinline
+        aria-hidden="true">
+      </video>
 
-        <!-- 2) Static poster image on top -->
-        <img
-          src="assets/1.png"
-          alt="Trailer Poster"
-          class="video-poster"
-        />
-    
-        <!-- 3) Custom “Play” button overlay -->
-        <img
-          src="assets/website_play_button.png"
-          alt="Play Trailer"
-          class="video-play-btn"
-        />
-    
-        <!-- 4) The actual <video> element, initially paused/invisible -->
-        <video
-          src="assets/AB_Teaser_Ver_5.mp4"
-          class="video-element"
-          preload="metadata"
-          playsinline
-          webkit-playsinline
-          controls
-          style="display: none;"
-        >
-          Your browser doesn’t support HTML5 video.
-        </video>
-      </div>
+      <!-- play button (opens modal) -->
+      <button id="open-trailer" class="play-btn" aria-label="Play full trailer">
+        <!-- any SVG or PNG icon you like -->
+        <img src="assets/website_play_button.png" alt="">
+      </button>
+    </section>
 
-        <!-- purely decorative overlay -->
-        <img src="assets/website_video border.png"
-        alt="" aria-hidden="true"
-        class="video-frame-border">
+    <!-- ── modal (hidden by default) -->
+    <aside id="trailer-modal" class="modal" aria-modal="true" role="dialog">
+    <div class="modal-inner">
+
+    <button id="close-trailer" class="close-btn" aria-label="Close trailer">✕</button>
+
+    <video id="trailer-video"
+        src="assets/AB_Teaser_Ver_5.mp4"
+        controls
+        playsinline
+        webkit-playsinline>
+    Sorry, your browser can’t play embedded videos.
+    </video>
     </div>
-
+    </aside>
   </section>
   
 

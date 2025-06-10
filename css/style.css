@@ -4,6 +4,7 @@
   --bg-dark: #12121b;
   --frame-radius: 28px; 
   --video-frame-pad: 15px;
+  --frame-pad: 15px;
 }
 
 /* ---------------- base styles ---------------- */
@@ -264,218 +265,94 @@ section {
 }
 
 /* ---------------- trailer ---------------- */
-  /* ---------------- trailer smoke overlay ---------------- */
-.trailer {
-  position: relative;        /* establishes containing‑block */
-  z-index: 1;                /* stays above page background */
-  overflow: hidden;          /* hides overlay edges when it scrolls */
-}
-
-/* Option A – rotate the word sideways */
-.trailer-label{
-  position: absolute;
-  right: 16rem;
-  top: 48%;
-  transform: translateY(-50%) rotate(90deg);
-  transform-origin: right center;
-  z-index: 50;
-
-  font-family: "Cinzel Decorative", serif;
-  font-size: 1.9rem;
-  letter-spacing: 0.35em;
-  color: var(--text-light);
-  pointer-events: none;         /* don’t block clicks on the video */
-  user-select: none;
-}
-
-/* Optional: hide on narrow screens */
-@media (max-width: 700px){
-  .trailer-label{ display:none; }
-}
-
-/* pseudo‑element that holds the smoke */
-.smoke-overlay::before{
-  content: "";
-  position: absolute;
-  inset: 0;                  /* full‑cover */
-  background: url("../assets/smoke.png") center / cover no-repeat;
-  
-  /* optional tint & blending so text stays readable */
-  opacity: 0.5;             /* tweak strength here */
-  mix-blend-mode: screen;    /* makes the smoke brighter on dark bg
-                                → try 'overlay' or remove if unwanted */
-
-  /* NEW — push the hue to red */
-  filter: grayscale(1) brightness(.9) sepia(1) hue-rotate(-10deg) saturate(8);
-  /*  ▲        ▲         ▲           ▲             ▲
-    remove    darken    prep       shift       deepen colour */
-  
-  pointer-events: none;      /* clicks pass through */
-  z-index: -1;               /* sits *behind* everything inside .trailer */
-}
-
-/* be sure the base section is a containing‑block */
-.smoke-overlay{                       /* any element you assign it to */
-  position:relative;                  /* keeps the ::before inside */
-  overflow:hidden;                    /* hides the edges on scroll */
-}
-
-/* Section that needs the smoke */
-.smoke-overlay-blue{
-  position: relative;
-  overflow: hidden;   /* clip smoke edges */
-}
-
-/* Pseudo‑element that paints the smoke */
-.smoke-overlay-blue::before{
-  content: "";
-  position: absolute;
-  inset: 0;                         /* full cover */
-  background: url("../assets/smoke.png") center / cover no-repeat;
-
-  /* tint → blue */
-  filter:
-      grayscale(1)
-      brightness(.9)
-      sepia(1)
-      hue-rotate(-180deg)   /* push toward cyan/blue */
-      saturate(8);
-
-  opacity: .5;
-  mix-blend-mode: screen;           /* optional */
-
-  /* flip vertically (top ↔ bottom) */
-  transform: scaleY(-1);            /* OR rotateX(180deg) */
-
-  z-index: 0;      /* sits above the section bg, below the content */
-  pointer-events: none;
-}
-
-
-.trailer h2 {
-  margin-bottom: 2rem;
-}
-
-/* -------------- decorative video frame -------------- */
-.video-frame {
-  position: relative;          /* create containing BFC */
-  width: 80vw;
-  max-width: 960px;
-  aspect-ratio: 16/9;          /* keeps the same ratio */
-  margin: 0 auto;
-}
-
-/* inner video shrinks on all four sides by the pad amount */
-.video-frame > .video-wrapper{
-  position:absolute;
-  inset:var(--video-frame-pad);   /* top/right/bottom/left */
-  width:auto;                     /* let the inset control size */
-  height:auto;
-}
-
-/* make sure the poster / play‑btn / video still fill that space */
-.video-wrapper .video-poster,
-.video-wrapper .video-element{
+/* ───── Trailer section – fills the viewport ───── */
+.trailer{
+  position:relative;
+  height:100vh;                /* full screen */
   width:100%;
-  height:100%;
-  object-fit:cover;
+  overflow:hidden;
 }
 
-/* the border PNG sits over everything, ignores clicks */
-.video-frame-border {
-  position: absolute;
-  inset: 0;                    /* top:0 right:0 bottom:0 left:0 */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;           /* stretches edge‑to‑edge */
-  pointer-events: none;        /* play‑button still clickable */
-  z-index: 30;                 /* > poster (10) & play‑button (20) */
+/* background teaser video */
+.teaser-bg{
+  position:absolute; 
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;            /* always fills, may crop */
+  z-index:-1;
 }
 
-/* ===== 1) Video wrapper (takes the place of iframe) ===== */
-.video-wrapper {
-  position: relative;
-  z-index: 2;
-  width: 80vw;
-  max-width: 960px;
-  aspect-ratio: 16 / 9;
-  margin: 0 auto;
-  overflow: hidden;
-  background: #000;
+/* "vignette" overlay that darkens the edges */
+.teaser::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  
+  /* radial in centre  +  linear top / bottom fade */
+  background:
+      radial-gradient(circle at center,
+        rgba(0,0,0,0.2) 0%,
+        rgba(0,0,0,.45) 40%,
+        rgba(0,0,0,.65) 80%,
+        rgba(0,0,0,.85) 100%),
+      linear-gradient(to bottom,
+        rgba(0,0,0,.45) 0%,
+        rgba(0,0,0,0)   15%,
+        rgba(0,0,0,0)   85%,
+        rgba(0,0,0,.45) 100%);
+  /* tweak the 40 % / 80 % / .35 / .55 stops until it feels right */
+  z-index:1;
 }
 
-/* ===== 2) Poster image (on top of video) ===== */
-.video-poster {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 10;
-  cursor: pointer;
+/* play   button */
+.play-btn{
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  width:6rem; height:6rem;        /* keep or tweak */
+  border:none; background:none; padding:0; cursor:pointer;
+  display:flex;                  /* centre children */
+  align-items:center;            /* ↳ vertically        */
+  justify-content:center;        /* ↳ horizontally      */
+  transition:transform .25s;
+}
+.play-btn:hover{ transform:translate(-50%, -50%) scale(1.08); }
+
+/* ───── Modal overlay ───── */
+.modal{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.55);  /* page darkener */
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .35s;
+  z-index: 999;                /* above everything */
 }
 
-/* ===== 3) Custom play button ===== */
-.video-play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-
-  /* Remove any background/font settings: */
-  border: none;
-  padding: 0;
-
-  /* Ensure the image is clickable: */
-  cursor: pointer;
-
-  /* Optional: add a slight “hover” scale for feedback */
-  transition: transform 0.2s ease;
+/* shown state (added via JS) */
+.modal.is‑open{
+  opacity:1; visibility:visible; pointer-events:auto;
 }
 
-/* On hover, gently increase size */
-.video-play-btn:hover {
-  transform: translate(-50%, -50%) scale(1.05);
+.modal-inner{
+  position:relative;
+  width:90vw; max-width:960px;
+  aspect-ratio:16/9;           /* keep ratio */
 }
 
-/* ===== 4) Actual video element, hidden until play ===== */
-.video-element {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 5;
-  background: #000;
-  display: none; /* will be shown via JS when user clicks Play */
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+.modal-inner video{
+  width:100%; height:100%; object-fit:cover;
 }
 
-/* ===== 5) Responsive tweaks for smaller screens ===== */
-@media (max-width: 900px) {
-  .video-wrapper {
-    width: 90vw;
-  }
-  .video-play-btn {
-    font-size: 2.5rem;
-    width: 3rem;
-    height: 3rem;
-  }
+.close-btn{
+  position:absolute; top:-2.5rem; right:-2.5rem;
+  background:#e40927; color:#fff;
+  border:none; border-radius:50%; width:3rem; height:3rem;
+  font-size:1.5rem; cursor:pointer;
 }
 
-@media (max-width: 600px) {
-  .video-wrapper {
-    width: 100vw;
-    margin: 0;
-  }
-  .video-play-btn {
-    font-size: 2rem;
-    width: 2.5rem;
-    height: 2.5rem;
-  }
+/* small screens: shrink play button & close icon */
+@media(max-width:540px){
+  .play-btn{ width:4rem; height:4rem; }
+  .close-btn{ width:2.5rem; height:2.5rem; font-size:1.2rem; }
 }
 
 /* ---------------- carousel ---------------- */
@@ -634,7 +511,7 @@ section {
 
 /* studio logo */
 .footer‑logo{
-  width:16rem;             /* tweak to taste; auto height      */
+  width:10rem;             /* tweak to taste; auto height      */
   height:auto;
 }
 

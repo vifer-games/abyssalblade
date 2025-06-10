@@ -59,32 +59,47 @@ if (window.gsap && window.ScrollTrigger){
   }
 }
 
+/* ───────────── Trailer modal logic ───────────── */
+  /* handles  */
+  const openBtn  = document.getElementById('open-trailer');
+  const modal    = document.getElementById('trailer-modal');
+  const closeBtn = document.getElementById('close-trailer');
+  const teaserBG = document.querySelector('.teaser-bg');     // looping 5‑sec video
+  const trailer  = document.getElementById('trailer-video'); // full trailer
 
-  // 3) “Custom Poster + Play” logic for the trailer
-  const wrapper = document.querySelector('.video-wrapper');
-  const poster  = document.querySelector('.video-poster');
-  const btn     = document.querySelector('.video-play-btn');
-  const videoEl = document.querySelector('.video-element');
-
-  if (wrapper && poster && btn && videoEl) {
-    function launchTrailer() {
-      poster.style.display = 'none';
-      btn.style.display    = 'none';
-      videoEl.style.display = 'block';
-      videoEl.play().catch(err => {
-        console.warn('Video playback prevented:', err);
-      });
-    }
-    poster.addEventListener('click', launchTrailer);
-    btn.addEventListener('click', launchTrailer);
-
-    videoEl.addEventListener('ended', () => {
-      poster.style.display = 'block';
-      btn.style.display    = 'block';
-      videoEl.style.display = 'none';
-      videoEl.currentTime = 0;
-    });
+  /* helper – open */
+  function openModal () {
+    modal.classList.add('is‑open');
+    document.body.style.overflow = 'hidden'; // stop page scrolling
+    teaserBG.pause();                        // optional – pause background
+    trailer.currentTime = 0;                 // rewind just in case
+    trailer.play();
   }
+
+  /* helper – close */
+  function closeModal () {
+    modal.classList.remove('is‑open');
+    document.body.style.overflow = '';       // re‑enable scrolling
+    teaserBG.play();                         // resume looping teaser
+    trailer.pause();
+  }
+
+  /* events */
+  openBtn .addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  /* close with Esc key */
+  window.addEventListener('keyup', e => {
+    if (e.key === 'Escape' && modal.classList.contains('is‑open')) {
+      closeModal();
+    }
+  });
+
+  /* optional ‑ click on dark backdrop closes too */
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal();
+  });
+  
 
 
   // ------------ 4) CAROUSEL LOGIC ------------
