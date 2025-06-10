@@ -366,7 +366,7 @@ section {
 /* ───── Background illustration ───── */
 .lore-bg{
   position:absolute; inset:0;
-  background:url("../assets/website_bg_image.png") top center/contain no-repeat;
+  background:url("../assets/website_bg_image.png") top center/cover no-repeat;
   will-change:transform;      /* smoother parallax            */
   z-index:-1;                 /* behind everything            */
 }
