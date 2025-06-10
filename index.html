@@ -36,22 +36,6 @@
     </div>
   </section>
 
-  <!-- ▾ About‑the‑Game section  ▾ -->
-  <section class="about-game">
-    <div class="about-game__bg" aria-hidden="true"></div>
-    <div class="about-inner">
-      <h2>From the Abyss</h2>
-      <p>
-        Abyssal Blade is a 2‑D, pixel‑art "strategic" boss‑rush
-        inspired by high‑level MMO raid mechanics—think <em>FFXIV Savage</em>, <em>WoW Mythic</em>,
-        or <em>Lost Ark Legion raids</em>. <br><br>
-        You awaken as the Wanderer, now strong enough to confront your sorrow.
-        With only 1 HP, conquer the five stages of grief and escape
-        the abyss.
-      </p>
-    </div>
-  </section>
-
   <section class="trailer reveal" aria-label="Game Trailer">
     <!-- background teaser (autoplays, loops, muted) -->
     <section class="teaser">
@@ -67,29 +51,48 @@
         <img src="assets/website_play_button.png" alt="">
       </button>
     </section>
+  </section>
 
-    <!-- ── modal (hidden by default) -->
-    <aside id="trailer-modal" class="modal" aria-modal="true" role="dialog">
+  <!-- ── modal (hidden by default) -->
+  <aside id="trailer-modal" class="modal" aria-modal="true" role="dialog">
     <div class="modal-inner">
 
-    <button id="close-trailer" class="close-btn" aria-label="Close trailer">✕</button>
+      <button id="close-trailer" class="close-btn" aria-label="Close trailer">✕</button>
 
-    <video id="trailer-video"
-        src="assets/AB_Teaser_Ver_5.mp4"
-        controls
-        playsinline
-        webkit-playsinline>
-    Sorry, your browser can’t play embedded videos.
-    </video>
+      <video id="trailer-video"
+          src="assets/AB_Teaser_Ver_5.mp4"
+          controls
+          playsinline
+          webkit-playsinline>
+      Sorry, your browser can’t play embedded videos.
+      </video>
     </div>
-    </aside>
-  </section>
-  
+  </aside>
 
-  <section class="carousel-wrapper" aria-label="Gameplay Showcase">
-    <div class="carousel-bg" aria-hidden="true"></div>
-    <h2>Let the Trial Begin</h2>
-    <div class="carousel" id="carousel">
+<!-- ────── Third section : ABOUT + GAMEPLAY ────── -->
+  <section class="lore" aria-label="About & Gameplay">
+    <!-- the background image layer -->
+    <div class="lore-bg" aria-hidden="true"></div>
+    <!-- everything the visitor actually sees -->
+    <div class="lore-inner">
+      <h2 class="reveal">From the Abyss</h2>
+      <p class="about-text reveal">
+        Abyssal Blade is a 2‑D, pixel‑art "strategic" boss‑rush
+        inspired by high‑level MMO raid mechanics—think <em>FFXIV Savage</em>, <em>WoW Mythic</em>,
+        or <em>Lost Ark Legion raids</em>. <br><br>
+        You awaken as the Wanderer, now strong enough to confront your sorrow.
+        With only 1 HP, conquer the five stages of grief and escape
+        the abyss.
+      </p>
+    </div>
+
+    <img src="assets/website_emblem.png"
+     alt=""                     
+     class="section-divider"
+     aria-hidden="true">
+
+
+    <div class="carousel reveal" id="carousel">
       <div class="slides">
         <div class="slide">
           <div class="gif-wrapper">
@@ -97,10 +100,9 @@
               src="assets/AB_MP4_0.mp4"    
               autoplay loop muted playsinline webkit-playsinline>
             </video>
-            <img class="gif-border" src="assets/image_border.png"    aria-hidden="true">
           </div>
           <div class="slide-content">
-            <h3>THE FRAGILE WANDERER</h3>
+            <h3 class="reveal">THE FRAGILE WANDERER</h3>
             <p class="intro">
               You awaken in the void, burdened by GRIEF. At last, you find the strength to rise—but the path ahead won’t be easy:
               <strong>you only have 1 HP.</strong> Take up your blade and break free from the abyss.
@@ -113,7 +115,6 @@
             src="assets/AB_MP4_1.mp4"    
             autoplay loop muted playsinline webkit-playsinline>
             </video>
-            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
           </div>
           <div class="slide-content">
             <h3>JOURNEY TO DEFEAT GRIEF</h3>
@@ -126,7 +127,6 @@
             src="assets/AB_MP4_2.mp4"    
             autoplay loop muted playsinline webkit-playsinline>
             </video>
-            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
           </div>
           <div class="slide-content">
             <h3>SURVIVE MERCILESS BOSS FIGHTS</h3>
@@ -139,7 +139,6 @@
             src="assets/AB_MP4_3.mp4"    
             autoplay loop muted playsinline webkit-playsinline>
             </video>
-            <img class="gif-border" src="assets/image_border.png" aria-hidden="true" />
           </div>
           <div class="slide-content">
             <h3>OPTIMIZE YOUR DAMAGE</h3>
@@ -147,28 +146,28 @@
           </div>
         </div>
       </div>
-    </div>
-<!-- ╭─ Carousel overlay ─╮ -->
-    <div class="carousel-overlay">
-      <!-- ◄ previous -->
-      <button id="prev" class="nav-btn" aria-label="Previous slide">
-        <img src="assets/website_carousel_left.png"        alt="" class="state idle">
-        <img src="assets/website_carousel_left_hover.png"  alt="" class="state hover">
-      </button>
+      <!-- ╭─ Carousel overlay ─╮ -->
+      <div class="carousel-overlay">
+        <!-- ◄ previous -->
+        <button id="prev" class="nav-btn" aria-label="Previous slide">
+          <img src="assets/website_carousel_left.png"        alt="" class="state idle">
+          <img src="assets/website_carousel_left_hover.png"  alt="" class="state hover">
+        </button>
 
-      <!-- dynamic gem‑strip -->
-      <img id="gem-strip"
-          src="assets/website_carousel_gem_1.png"
-          alt="Slide position"
-          class="gem-strip">
+        <!-- dynamic gem‑strip -->
+        <img id="gem-strip"
+            src="assets/website_carousel_gem_1.png"
+            alt="Slide position"
+            class="gem-strip">
 
-      <!-- ► next -->
-      <button id="next" class="nav-btn" aria-label="Next slide">
-        <img src="assets/website_carousel_right.png"       alt="" class="state idle">
-        <img src="assets/website_carousel_right_hover.png" alt="" class="state hover">
-      </button>
-    </div>
-    <!-- ╰─────────────────────╯ -->
+        <!-- ► next -->
+        <button id="next" class="nav-btn" aria-label="Next slide">
+          <img src="assets/website_carousel_right.png"       alt="" class="state idle">
+          <img src="assets/website_carousel_right_hover.png" alt="" class="state hover">
+        </button>
+      </div>
+      <!-- ╰─────────────────────╯ -->
+      </div>
   </section>
 
 

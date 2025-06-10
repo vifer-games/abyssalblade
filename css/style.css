@@ -3,8 +3,6 @@
   --text-light: #f5f5f5;
   --bg-dark: #12121b;
   --frame-radius: 28px; 
-  --video-frame-pad: 15px;
-  --frame-pad: 15px;
 }
 
 /* ---------------- base styles ---------------- */
@@ -45,33 +43,6 @@ section {
   padding: 8rem;
 }
 
-.pulse-overlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255, 0, 0, 0.15), transparent 70%);
-  animation: pulseField 5s infinite;
-  z-index: -1;
-  pointer-events: none;
-}
-
-@keyframes pulseField {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.05);
-  }
-}
-
-/* Ensure the parent can contain the pseudo-element */
-.pulse-overlay {
-  position: relative;
-  overflow: hidden;
-}
-
 /* ---------------- hero ---------------- */
 .hero {
   position:relative;
@@ -82,6 +53,7 @@ section {
   align-items:center;
   justify-content:center;
   padding:0; 
+  min-height:100vh;
 }
 
 .hero-bg-wrapper {
@@ -122,7 +94,7 @@ section {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -197,73 +169,6 @@ section {
   100% { transform: translateY(-120vh) translateX(-10vw) scale(0.3); opacity: 0; }
 }
 
-/* ───────────── About‑the‑Game  ───────────── */
-/* ---------- container ---------- */
-.about-game{
-  position:relative;
-  min-height:80vh;                       /* take space */
-  padding:6rem 1rem;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;                       /* clip bg edges */
-  text-align:center;                     /* narrow centered copy */
-}
-
-/* ---------- scrolling backdrop ---------- */
-.about-game__bg{
-  position:absolute;
-  inset:0;
-
-  /*  ❯  push 10 % outside the box top & bottom  */
-  top   : 0%;
-  bottom: -50%;
-  left  : 0;
-  right : 0;
-
-  background:linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0.6)),   /* tint */
-  url("../assets/bargain_arena_full.png") center / cover no-repeat;
-  will-change:transform;
-  z-index:-1;          
-  pointer-events:none;   /* clicks go through */
-}
-
-/* ---------- inner text block ---------- */
-.about-game__inner{
-  position:relative;     /* create stack‑context above z:-1 bg */
-  max-width:42rem;
-  z-index:1;
-}
-
-
-/* subtle darken + tint so text stays readable */
-.about-game::before{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  z-index:-0;                     /* beneath the content        */
-}
-
-.about-inner{
-  max-width: 700px;               /* “narrow” column            */
-  text-align:center;
-}
-
-.about-inner h2{
-  font-family:"Cinzel Decorative",serif;
-  font-size: 2.4rem;
-  margin-bottom:1.5rem;
-}
-
-.about-inner p{
-  font-size:1.15rem;
-  line-height:1.7;
-}
-
-/* —— optional: smoother on mobile —— */
-@media (max-width:600px){
-  .about-inner h2{ font-size:1.8rem; }
-  .about-inner p { font-size:1rem; }
-}
-
 /* ---------------- trailer ---------------- */
 /* ───── Trailer section – fills the viewport ───── */
 .trailer{
@@ -317,29 +222,39 @@ section {
 }
 .play-btn:hover{ transform:translate(-50%, -50%) scale(1.08); }
 
-/* ───── Modal overlay ───── */
+/* ─── Modal overlay ───────────────────────────── */
 .modal{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.55);  /* page darkener */
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; visibility:hidden; pointer-events:none;
+  position:fixed;                 /* <‑‑ stay fixed to the viewport        */
+  inset:0;
+  background:rgba(0,0,0,.70);     /* a touch darker = nicer focus          */
+  display:flex;
+  align-items:center;             /* <‑‑ these two already centre the      */
+  justify-content:center;         /*      .modal-inner on the screen       */
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;            /* disabled until .is‑open is added      */
   transition:opacity .35s;
-  z-index: 999;                /* above everything */
+  z-index:999;                    /* sits above site                       */
 }
 
-/* shown state (added via JS) */
 .modal.is‑open{
-  opacity:1; visibility:visible; pointer-events:auto;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;            /* enable clicks once shown              */
 }
 
+/* keep the video nicely centred & responsive */
 .modal-inner{
   position:relative;
-  width:90vw; max-width:960px;
-  aspect-ratio:16/9;           /* keep ratio */
+  width:90vw;
+  max-width:960px;
+  aspect-ratio:16/9;
 }
 
 .modal-inner video{
-  width:100%; height:100%; object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .close-btn{
@@ -353,6 +268,64 @@ section {
 @media(max-width:540px){
   .play-btn{ width:4rem; height:4rem; }
   .close-btn{ width:2.5rem; height:2.5rem; font-size:1.2rem; }
+}
+
+/* ───── Base section wrapper ───── */
+.lore{
+  position:relative;
+  padding:6rem 1rem;          /* space above / below content   */
+  overflow:hidden;            /* hide bg spill‑over            */
+  min-height:100vh;           /* at least one viewport tall    */
+  isolation:isolate;          /* so mix‑blend doesn’t leak     */
+}
+
+/* inner content column */
+.lore-inner{
+  max-width: 700px;  
+  margin-inline:auto;
+  text-align:center;
+  position:relative;          /* stays above bg layer          */
+  z-index:10;
+}
+
+/* ───── Background illustration ───── */
+.lore-bg{
+  position:absolute; inset:0;
+  background:url("../assets/website_bg_image.png") top center/contain no-repeat;
+  will-change:transform;      /* smoother parallax            */
+  z-index:-1;                 /* behind everything            */
+}
+
+/* if you want a subtle darkening so text stands out */
+.lore::before{
+  content:"";
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.45);     /* tweak α */
+  pointer-events:none;
+  z-index:-2;
+}
+
+/* -------- typography tweaks inside this section ------------ */
+.lore h2{
+  font-family:"Cinzel Decorative",serif;
+  font-size:2.4rem;
+  margin-bottom:3rem;
+}
+.lore .about-text{
+  font-size:1.15rem;
+  max-width:46ch;
+  line-height:1.7;
+  margin-bottom:3rem;
+}
+
+/* horizontal ornament that sits between About & Carousel */
+.section-divider{
+  display:block;
+  height:10rem;           /* keep aspect‑ratio                    */
+  pointer-events:none;   /* it’s decorative – ignore mouse hits  */
+  transform: rotate(270deg);
+  /* optional tint if you need to match palette
+     filter:brightness(.9) saturate(.8);  */
 }
 
 /* ---------------- carousel ---------------- */
@@ -372,25 +345,6 @@ section {
   z-index: 1;                   /* sits above page bg, below its ::before */
   overflow: hidden;             /* hides any spill‑over */
 }
-
-.carousel-bg {
-  position: absolute;
-  inset: 0;
-
-  /*  ❯  push 10 % outside the box top & bottom  */
-  top   : 0%;
-  bottom: -60%;
-  left  : 0;
-  right : 0;
-
-  background: url("../assets/clouds bg 4k.png") center / cover no-repeat;
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-  z-index: -1;
-  will-change: transform;
-  transition: background-position 0.2s ease-out;
-}
-
 
 /* make sure the inner .carousel content stays above */
 .carousel{ z-index: 2; position: relative; }
@@ -434,7 +388,7 @@ section {
 
 
 .slides { display:flex; transition: transform 0.7s ease-in-out; }
-.slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: center; }
+.slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: top; }
 .slide-content { width:45%; padding-left:3rem; text-align: right; }
 
 .slide-content h3 {
@@ -465,9 +419,12 @@ section {
 
 /* ── overlay container ───────────────────────────── */
 .carousel-overlay{
-  position:absolute; left:50%; bottom:2rem;
-  transform:translateX(-50%);
-  display:flex; align-items:center; gap: 0rem;
+  position:absolute; 
+  right: 0;          /* distance from the right edge   */
+  bottom: 2rem;         /* keep your existing vertical gap */
+  display:flex; 
+  align-items:center; 
+  gap: 0rem;
   pointer-events:none;          /* overlay ignores clicks   */
   z-index:30;
 }

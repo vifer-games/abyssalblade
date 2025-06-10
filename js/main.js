@@ -97,7 +97,10 @@ if (window.gsap && window.ScrollTrigger){
 
   /* optional ‑ click on dark backdrop closes too */
   modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
+    // If the click did NOT happen inside .modal-inner → close.
+    if (!e.target.closest('.modal-inner')) {
+      closeModal();
+    }
   });
   
 
