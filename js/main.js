@@ -1,18 +1,20 @@
 // Wait until the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   // ------------ 1) PARTICLES BACKGROUND ------------
-  const container = document.querySelector('.particles');
-  if (container) {
-    for (let i = 0; i < 75; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'particle';
-      dot.style.left = Math.random() * 100 + 'vw';
-      dot.style.bottom = '-' + Math.random() * 100 + 'px';
-      dot.style.animationDelay = (Math.random() * 18) + 's';
-      dot.style.opacity = Math.random();
-      container.appendChild(dot);
-    }
-  }
+  const navHeight = document.querySelector('.navbar').offsetHeight;
+
+  document.querySelectorAll('a[data-scroll]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+
+      /* distance from page‑top MINUS the fixed‑bar height */
+      const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
 
   // ------------ 2) GSAP SCROLL-IN REVEAL ------------
   // Only proceed if GSAP & ScrollTrigger have loaded

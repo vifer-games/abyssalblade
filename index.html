@@ -22,7 +22,37 @@
   <link rel="preload" as="video" href="assets/AB_MP4_3.mp4" type="video/mp4">
 </head>
 <body>
-  <section class="hero" aria-label="Abyssal Blade Key Art">
+  <!-- ───────────── Navigation bar ───────────── -->
+  <header class="navbar">
+    <!-- ◄── left side -->
+    <nav class="nav-left">
+      <a href="#top"  class="logo">
+        <img src="assets/logo-resized.png" alt="VIFER GAMES">
+      </a>
+
+      <!-- in‑page anchors -->
+      <a href="#home"  class="nav-link" data-scroll>HOME</a>
+      <a href="#trailer"  class="nav-link" data-scroll>TRAILER</a>
+      <a href="#gameplay" class="nav-link" data-scroll>GAMEPLAY</a>
+    </nav>
+
+    <!-- ►── right side -->
+    <nav class="nav-right">
+      <!-- social icons (reuse the same PNG / SVG you used in the footer) -->
+      <a href="https://store.steampowered.com/app/3681370"  aria-label="Steam"  ><img src="assets/icon_steam.svg"    alt=""></a>
+      <a href="https://youtube.com/@YourChannel"            aria-label="YouTube"><img src="assets/icon_youtube.png"  alt=""></a>
+      <a href="https://twitter.com/YourHandle"              aria-label="X"      ><img src="assets/icon_x.png"        alt=""></a>
+      <a href="https://discord.gg/YourInvite"               aria-label="Discord"><img src="assets/icon_discord.png" alt=""></a>
+      <a href="https://open.spotify.com/album/YourAlbumID"  aria-label="Spotify"><img src="assets/icon_spotify.png" alt=""></a>
+
+      <!-- primary CTA -->
+      <button class="cta-btn small" onclick="window.location.href='https://store.steampowered.com/app/3681370'">
+        PLAY NOW
+      </button>
+    </nav>
+  </header>
+
+  <section id="home" class="hero" aria-label="Abyssal Blade Key Art">
     <!-- Wrap image and overlay together -->
     <div class="hero-bg-wrapper">
       <img src="assets/AbyssalBlade_4k.png" alt="Abyssal Blade Key Art" class="hero-bg" />
@@ -36,7 +66,7 @@
     </div>
   </section>
 
-  <section class="trailer reveal" aria-label="Game Trailer">
+  <section id="trailer" class="trailer reveal" aria-label="Game Trailer">
     <!-- background teaser (autoplays, loops, muted) -->
     <section class="teaser">
       <video class="teaser-bg"
@@ -70,7 +100,7 @@
   </aside>
 
 <!-- ────── Third section : ABOUT + GAMEPLAY ────── -->
-  <section class="lore" aria-label="About & Gameplay">
+  <section id="gameplay" class="lore" aria-label="About & Gameplay">
     <!-- the background image layer -->
     <div class="lore-bg" aria-hidden="true"></div>
     <!-- everything the visitor actually sees -->

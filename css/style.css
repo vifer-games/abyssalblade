@@ -2,7 +2,6 @@
   --accent: #e40927;
   --text-light: #f5f5f5;
   --bg-dark: #12121b;
-  --frame-radius: 28px; 
 }
 
 /* ---------------- base styles ---------------- */
@@ -41,6 +40,82 @@ section {
   align-items: center;
   justify-content: center;
   padding: 8rem;
+}
+
+/* ───────────── Sticky navigation ───────────── */
+.navbar{
+  position: fixed;
+  inset: 0 0 auto 0;            /* top:0; left/right:0 */
+  height: 64px;                 /* tweak to taste       */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 1000;
+
+  /* subtle translucent backdrop */
+  background: rgba(9,3,16,0.65);
+  backdrop-filter: blur(6px);
+}
+
+/* left / right clusters */
+.nav-left,
+.nav-right{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* logo */
+.nav-left .logo img{
+  height: 40px;                 /* keeps it small       */
+  width:  auto;
+}
+
+/* text links */
+.nav-link{
+  font-family: "Cinzel", serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--text-light);
+  transition: color .25s;
+}
+.nav-link:hover,
+.nav-link:focus{
+  color: var(--accent);
+}
+
+/* social icons – reuse footer style */
+.nav-right img{
+  width: 28px; height: 28px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(0) invert(1);
+  transition: filter .25s;
+}
+.nav-right a:hover img{ filter:none; }
+
+/* ───── nav‑bar variant of the main CTA ───── */
+.navbar .cta-btn{        /* only when the button lives in .navbar   */
+  margin: 0;             /* ← kill the 3 rem hero margin            */
+  display: flex;         /* keep text perfectly centred vertically  */
+  align-items: center;
+  justify-content: center;
+  line-height: 1;        /* tidy up baseline mis‑alignments         */
+}
+
+/* compact button variant */
+.cta-btn.small{
+  padding: 0.6rem 1.4rem;
+  font-size: 0.85rem;
+  animation: none;              /* optional – stop pulse in nav */
+}
+
+/* ───── Responsive tweaks ───── */
+@media(max-width: 720px){
+  .nav-left  { gap: 1rem; }
+  .nav-right { gap: 1.2rem; }
+  .nav-link  { display:none; }      /* hide text links on tiny screens */
 }
 
 /* ---------------- hero ---------------- */
@@ -365,11 +440,6 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Add just the two rounded corners: */
-  border-top-right-radius: var(--frame-radius);
-  border-bottom-left-radius: var(--frame-radius);
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
   display: block;
   z-index: 1; /* underneath the border overlay */
 }
