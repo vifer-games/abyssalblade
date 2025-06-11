@@ -190,7 +190,7 @@ section {
 /* ===========================================================
    PHONE / SMALL‑TABLET OVERRIDE
    =========================================================== */
-@media (max-width: 640px){                /* adjust breakpoint if you like */
+@media (max-width: 1050px){                /* adjust breakpoint if you like */
 
   /* 1) make the hero section itself fill the screen */
   .hero{
@@ -419,17 +419,33 @@ section {
   font-size:1rem;
   max-width:46ch;
   line-height:1.7;
-  margin-bottom:3rem;
+  margin-bottom:0;
 }
 
 /* horizontal ornament that sits between About & Carousel */
 .section-divider{
   display:block;
-  height:10rem;           /* keep aspect‑ratio                    */
   pointer-events:none;   /* it’s decorative – ignore mouse hits  */
   transform: rotate(270deg);
-  /* optional tint if you need to match palette
-     filter:brightness(.9) saturate(.8);  */
+  /* make sure the file can shrink responsively */
+  max-width: 120px;           /* tweak or remove if you want full size */
+  width: 5vw;                /* scales on very small screens          */
+  height:auto;
+  
+  /* white‑glow */
+  filter: drop-shadow(0 0   4px rgba(255,255,255,.65))
+          drop-shadow(0 0 10px rgba(255,255,255,.45));
+  transition:filter .25s ease;        /* optional hover polish */
+}
+
+.section-divider:hover{
+  /* subtle brighten on hover / focus */
+  filter: drop-shadow(0 0  6px rgba(255,255,255,.85))
+          drop-shadow(0 0 14px rgba(255,255,255,.60));
+}
+
+@media(max-width:540px){
+  .section-divider{ width:10vw;}
 }
 
 /* ---------------- carousel ---------------- */
@@ -439,8 +455,8 @@ section {
   width: 90%;
   max-width: 1200px;
   overflow: hidden;
-  margin-top: 3rem;
-  margin-bottom: 0rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* ------------- carousel background ------------- */
@@ -456,7 +472,7 @@ section {
 /* ---------------- GIF + border container ---------------- */
 .gif-wrapper {
   position: relative;
-  width: 70%;               /* same as your old .slide .gif width */
+  width: 65%;               /* same as your old .slide .gif width */
   aspect-ratio: 1920 / 1080; 
   overflow: hidden;         /* hide any parts of the GIF that stick out */
 }
@@ -488,7 +504,7 @@ section {
 
 .slides { display:flex; transition: transform 0.7s ease-in-out; }
 .slide  { min-width:100%; display:flex; align-items:flex-start; justify-content: center; align-items: top; }
-.slide-content { width:40%; padding-left:3rem; text-align: right; }
+.slide-content { width:35%; padding-left:3rem; text-align: right; }
 
 .slide-content h3 {
   display: inline-block;      /* shrink to fit content */
@@ -570,45 +586,65 @@ section {
 .nav-btn:hover .idle  { opacity:0; }
 
 /* ===========================================================
-   CAROUSEL — mobile tweaks  (≤ 640 px)
-   =========================================================== */
-@media (max-width:640px){
+   CAROUSEL — mobile tweaks  
 
-  /* 1 ───────────────────────────────── video */
+/* ───── Tablet & large‑phone breakpoint ───── */
+@media (max-width:1024px){
+
+  /* put video first, text underneath */
+  .slide{
+    flex-direction:column;
+    align-items:center;
+    gap:1.6rem;
+  }
+
+  /* video takes the full width of the carousel */
   .gif-wrapper{
-    /* let the video be the star on phones */
-    width:100vw;                 /* edge‑to‑edge           */
-    height:56.25vw;              /* 16 : 9 of 100 vw       */
-    aspect-ratio:auto;           /* we just set explicit H */
-    margin:0 auto 1.75rem;       /* bottom gap before text */
+    width:100%;
+    aspect-ratio:16/9;  /* keeps it 16:9 no matter the width */
   }
-  .gif-wrapper video{object-fit:cover;}
 
-  /* 2 ───────────────────────────────── header + red line */
-  .slide-content      {width:100%; text-align:center;padding-bottom:3.5rem;}
-  .slide-content h3   {font-size:1rem;}       /* slightly smaller   */
+  /* text block */
+  .slide-content{
+    width:90%;          /* much narrower – centred */
+    padding-left:0;
+    text-align:center;
+  }
 
-  /* shorten the underline & re‑centre it */
+  /* header’s red sweep line – shorten so it never wraps */
   .slide-content h3::after{
-    width:270px;             
-    left:50%;
-    transform:translateX(-50%) scaleX(1);
+    width:250px;
   }
 
-  /* 3 ───────────────────────────────── gem strip & arrows */
+  /* gem strip sits safely _below_ the text           */
   .carousel-overlay{
-    bottom:0;             /* lift a bit             */
-    right:50%;                  /* centre horizontally…   */
-    transform:translateX(50%);  /* …but keep on bottom    */
-    gap:.2rem;
+    position:static;    /* drops into normal flow   */
+    margin-top:1.5rem;  /* add breathing‑room       */
+    justify-content:center;
   }
-  .nav-btn      {width:46px; height:46px;}       /* smaller arrows     */
-  .gem-strip    {height:40px;}                   /* strip shrinks too  */
 
-  /* keep arrows clear of text even in extreme cases */
-  .slide-content p{ padding:0 1.5rem; }
+  /* arrows / gems a bit smaller so they fit on phones */
+  .nav-btn{  width:60px; height:60px; }
+  .gem-strip{ height:38px; }
+
+    @media (max-width:600px){
+    .slide-content h3{ font-size:1.3rem; }
+    .slide-content p { font-size:.95rem; }
+    .nav-btn{ width:48px; height:48px; }
+    .gem-strip{ height:32px; }
+    .carousel-overlay{
+      bottom:0;             /* lift a bit             */
+      left:50%;                  /* centre horizontally…   */
+      gap:.2rem;
+    }
+    .nav-btn      {width:46px; height:46px;}       /* smaller arrows     */
+    .gem-strip    {height:40px;}                   /* strip shrinks too  */
+
+    /* keep arrows clear of text even in extreme cases */
+    .slide-content p{ padding:0 1.5rem; }
+    }
+
 }
-
 
 
 /* ─────────────── Footer wrapper ─────────────── */
