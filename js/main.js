@@ -90,6 +90,39 @@ if (window.gsap && window.ScrollTrigger){
     }
   });
   
+  /* ───────────── Dev‑notes modal ───────────── */
+  (() => {
+    const openBtn  = document.getElementById('open-dev');
+    const modal    = document.getElementById('dev-modal');
+    const closeBtn = document.getElementById('close-dev');
+
+    if (!openBtn || !modal || !closeBtn) return;   // safety
+
+    function openModal () {
+      modal.classList.add('is‑open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal () {
+      modal.classList.remove('is‑open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    /* click outside the panel */
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+
+    /* Esc key */
+    window.addEventListener('keyup', e => {
+      if (e.key === 'Escape' && modal.classList.contains('is‑open')) {
+        closeModal();
+      }
+    });
+  })();
 
 
   // ------------ 4) CAROUSEL LOGIC ------------
@@ -146,4 +179,27 @@ if (window.gsap && window.ScrollTrigger){
   /* ---------- 5. init ---------- */
   go(0);     // first frame
   start();   // begin auto‑advance 
+
+  /* ─────────── Smooth‑scroll navigation ─────────── */
+document.querySelectorAll('nav a[href^="#"]').forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();                         // stop default jump
+
+    /* 1) close any open modal & re‑enable page scroll */
+    document.body.style.overflow = '';
+    document.querySelectorAll('.modal.is‑open')
+            .forEach(m => m.classList.remove('is‑open'));
+
+    /* 2) get the target section and scroll to it      */
+    const targetID = link.getAttribute('href').slice(1);
+    const target   = document.getElementById(targetID);
+    if (target){
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block:    'start'
+      });
+    }
+  });
+});
+
 });

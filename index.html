@@ -231,9 +231,25 @@
     <small class="copyright">© 2025 VIFER GAMES, ALL RIGHTS RESERVED.</small>
   </footer>
 
-<!-- Floating Dev Notes button -->
-<a href="dev-notes.html" class="dev-btn" target="_blank" rel="noopener" aria-label="Developer Notes">
-  📝
-</a>
+  <!-- Floating Dev Notes button -->
+  <button id="open-dev" class="dev-btn" aria-label="Developer Notes">
+    📝
+  </button>
+  <!--───────────── Dev‑Notes modal ─────────────-->
+<aside id="dev-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-inner dev-notes">
+
+    <button id="close-dev" class="close-btn" aria-label="Close developer notes">✕</button>
+
+    <!-- your scrollable notes -->
+    <div class="dev-scroll">
+      <h2>Developer Notes</h2>
+      <p>Add text, screenshots, GIFs… whatever you like.</p>
+      <!-- … -->
+    </div>
+
+  </div>
+</aside>
+
 </body>
 </html>
