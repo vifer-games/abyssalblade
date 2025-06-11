@@ -113,8 +113,9 @@ section {
 /* ───── Responsive tweaks ───── */
 @media(max-width: 720px){
   .nav-left  { gap: 1rem; }
-  .nav-right { gap: 1.2rem; }
+  .nav-right { gap: 1rem; }
   .nav-link  { display:none; }      /* hide text links on tiny screens */
+  .navbar .cta-btn {display:none; }
 }
 
 /* ---------------- hero ---------------- */
@@ -185,6 +186,49 @@ section {
   margin: 0 auto;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.7));
 }
+
+/* ===========================================================
+   PHONE / SMALL‑TABLET OVERRIDE
+   =========================================================== */
+@media (max-width: 640px){                /* adjust breakpoint if you like */
+
+  /* 1) make the hero section itself fill the screen */
+  .hero{
+    height: 100vh;
+    min-height: 100vh;                    /* older Safari fallback   */
+    overflow: hidden;                     /* hide any overflow slack */
+  }
+
+  /* 2) be sure the wrapper actually spans the whole hero */
+  .hero-bg-wrapper{
+    position: absolute;                   /* already absolute, but   */
+    inset: 0;                             /* guarantee full cover    */
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 3) now force the <img> to *fill* that wrapper */
+  .hero-bg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;                    /* fill + crop as needed   */
+    object-position: center top;          /* keep head / blade       */
+    transform: scale(1.05);               /* tiny zoom to avoid gaps */
+  }
+
+  /* 4) optional – if the side‑fade was too heavy, soften it a bit */
+  .hero-fade-overlay{
+    background: linear-gradient(
+      to right,
+      rgba(9,3,16,.55) 0%,
+      rgba(9,3,16,0)   35%,
+      rgba(9,3,16,0)   65%,
+      rgba(9,3,16,.55) 100%
+    );
+  }
+}
+
+
 
 /* call‑to‑action button */
 .cta-btn {
@@ -272,7 +316,7 @@ section {
 /* play   button */
 .play-btn{
   position:absolute; top:50%; left:50%;
-  transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%) scale(1.5);
   width:6rem; height:6rem;        /* keep or tweak */
   border:none; background:none; padding:0; cursor:pointer;
   display:flex;                  /* centre children */
@@ -280,7 +324,7 @@ section {
   justify-content:center;        /* ↳ horizontally      */
   transition:transform .25s;
 }
-.play-btn:hover{ transform:translate(-50%, -50%) scale(1.08); }
+.play-btn:hover{ transform:translate(-50%, -50%) scale(1.8); }
 
 /* ─── Modal overlay ───────────────────────────── */
 .modal{
@@ -524,6 +568,46 @@ section {
 .nav-btn .hover { opacity:0; }
 .nav-btn:hover .hover { opacity:1; }
 .nav-btn:hover .idle  { opacity:0; }
+
+/* ===========================================================
+   CAROUSEL — mobile tweaks  (≤ 640 px)
+   =========================================================== */
+@media (max-width:640px){
+
+  /* 1 ───────────────────────────────── video */
+  .gif-wrapper{
+    /* let the video be the star on phones */
+    width:100vw;                 /* edge‑to‑edge           */
+    height:56.25vw;              /* 16 : 9 of 100 vw       */
+    aspect-ratio:auto;           /* we just set explicit H */
+    margin:0 auto 1.75rem;       /* bottom gap before text */
+  }
+  .gif-wrapper video{object-fit:cover;}
+
+  /* 2 ───────────────────────────────── header + red line */
+  .slide-content      {width:100%; text-align:center;padding-bottom:3.5rem;}
+  .slide-content h3   {font-size:1rem;}       /* slightly smaller   */
+
+  /* shorten the underline & re‑centre it */
+  .slide-content h3::after{
+    width:270px;             
+    left:50%;
+    transform:translateX(-50%) scaleX(1);
+  }
+
+  /* 3 ───────────────────────────────── gem strip & arrows */
+  .carousel-overlay{
+    bottom:0;             /* lift a bit             */
+    right:50%;                  /* centre horizontally…   */
+    transform:translateX(50%);  /* …but keep on bottom    */
+    gap:.2rem;
+  }
+  .nav-btn      {width:46px; height:46px;}       /* smaller arrows     */
+  .gem-strip    {height:40px;}                   /* strip shrinks too  */
+
+  /* keep arrows clear of text even in extreme cases */
+  .slide-content p{ padding:0 1.5rem; }
+}
 
 
 
