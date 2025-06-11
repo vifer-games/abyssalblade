@@ -108,7 +108,6 @@ section {
 .cta-btn.small{
   padding: 0.6rem 1.4rem;
   font-size: 0.85rem;
-  animation: none;              /* optional – stop pulse in nav */
 }
 
 /* ───── Responsive tweaks ───── */
@@ -128,7 +127,6 @@ section {
   align-items:center;
   justify-content:center;
   padding:0; 
-  min-height:100vh;
 }
 
 .hero-bg-wrapper {
@@ -173,6 +171,14 @@ section {
   z-index: 1;
 }
 
+.logo-wrap.glow img{
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe{
+ 0%,100%{ filter:brightness(1) drop-shadow(0 0 6px #000000); }
+ 50%    { filter:brightness(1.25) drop-shadow(0 0 8px #ffffff); }
+}
+
 .hero-logo {
   width: 100%;
   max-width: 600px;
@@ -182,8 +188,11 @@ section {
 
 /* call‑to‑action button */
 .cta-btn {
+  display:inline-block;      /* honour width / padding exactly   */
+  text-decoration:none;      /* kill the underline               */
+  line-height:1;             /* avoids extra vertical padding    */
   position: relative;
-  margin-top: 1rem;
+  margin-top: 5rem;
   padding: 1rem 2.5rem;
   background: linear-gradient(135deg, var(--accent), #800018);
   border: 2px solid var(--accent);
@@ -218,30 +227,6 @@ section {
   0%   { box-shadow: 0 0 5px rgba(228,  9, 46, 0.3); }
   50%  { box-shadow: 0 0 20px rgba(228, 9, 46, 0.8); }
   100% { box-shadow: 0 0 5px rgba(228, 9, 46, 0.3); }
-}
-
-/* ---------------- particles ---------------- */
-.particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.particle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 50%;
-  animation: float 18s linear infinite;
-  filter: blur(2px);
-}
-
-@keyframes float {
-  0%   { transform: translateY(0)   translateX(0)  scale(1);   opacity: 1; }
-  100% { transform: translateY(-120vh) translateX(-10vw) scale(0.3); opacity: 0; }
 }
 
 /* ---------------- trailer ---------------- */
@@ -387,7 +372,7 @@ section {
   margin-bottom:3rem;
 }
 .lore .about-text{
-  font-size:1.15rem;
+  font-size:1rem;
   max-width:46ch;
   line-height:1.7;
   margin-bottom:3rem;
@@ -427,8 +412,8 @@ section {
 /* ---------------- GIF + border container ---------------- */
 .gif-wrapper {
   position: relative;
-  width: 50%;               /* same as your old .slide .gif width */
-  aspect-ratio: 1194 / 814; /* match the border PNG’s pixel dimensions */
+  width: 70%;               /* same as your old .slide .gif width */
+  aspect-ratio: 1920 / 1080; 
   overflow: hidden;         /* hide any parts of the GIF that stick out */
 }
 
@@ -458,13 +443,13 @@ section {
 
 
 .slides { display:flex; transition: transform 0.7s ease-in-out; }
-.slide  { min-width:100%; display:flex; align-items:flex-start; gap:2rem; justify-content: center; align-items: top; }
-.slide-content { width:45%; padding-left:3rem; text-align: right; }
+.slide  { min-width:100%; display:flex; align-items:flex-start; justify-content: center; align-items: top; }
+.slide-content { width:40%; padding-left:3rem; text-align: right; }
 
 .slide-content h3 {
   display: inline-block;      /* shrink to fit content */
   position: relative;         /* for the ::after to position itself */
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
 }
@@ -476,7 +461,7 @@ section {
   left: 100%;                 /* start at 50% of the h3’s width */
   transform: translateX(-100%) scaleX(1);
   transform-origin: center;  /* scale out from the center */
-  width: 300px;              /* length of the line—adjust as needed */
+  width: 370px;              /* length of the line—adjust as needed */
   height: 2px;               /* thickness of the line */
   background: var(--accent); /* your red color */
 }
@@ -485,13 +470,27 @@ section {
   transform: translateX(-100%) scaleX(1);
 }
 
-.slide-content p { line-height:1.9; margin-top:1rem; font-size:1.25rem; }
+@keyframes sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.slide-content h3::after{
+  background: linear-gradient(90deg,
+               transparent 0%,
+               var(--accent) 50%,
+               transparent 100%);
+  background-size: 200% 100%;
+  animation: sweep 6s linear infinite;
+}
+
+.slide-content p { line-height:1.9; margin-top:2rem; font-size:1rem; }
 
 /* ── overlay container ───────────────────────────── */
 .carousel-overlay{
   position:absolute; 
   right: 0;          /* distance from the right edge   */
-  bottom: 2rem;         /* keep your existing vertical gap */
+  bottom: 1rem;         
   display:flex; 
   align-items:center; 
   gap: 0rem;
@@ -506,7 +505,7 @@ section {
 
 /* ---- gem‑strip ---- */
 .gem-strip{
-  height:auto;                 /* take the PNG’s own height (≈40 px) */
+  height:45px;                 /* take the PNG’s own height (≈40 px) */
   width:auto;                  /* preserve aspect ratio               */
   image-rendering:pixelated;   /* keep the pixels crisp               */
 }
@@ -514,7 +513,7 @@ section {
 /* ---- arrow buttons ---- */
 .nav-btn{
   position:relative;
-  width:75px; height:75px;      /* same square size         */
+  width:80px; height:80px;      /* same square size         */
   padding:0; border:none; background:none; cursor:pointer;
 }
 .nav-btn img{                   /* stack the two frames     */
@@ -525,6 +524,8 @@ section {
 .nav-btn .hover { opacity:0; }
 .nav-btn:hover .hover { opacity:1; }
 .nav-btn:hover .idle  { opacity:0; }
+
+
 
 /* ─────────────── Footer wrapper ─────────────── */
 .site‑footer{
@@ -546,7 +547,7 @@ section {
 copyright,
 .site‑footer small{        /* in case you already used <p>     */
   font-size:.72rem;
-  line-height:1.2;
+  line-height:.1rem;
   opacity:.75;
   letter-spacing:.03em;
 }

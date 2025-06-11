@@ -1,20 +1,5 @@
 // Wait until the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-  // ------------ 1) PARTICLES BACKGROUND ------------
-  const navHeight = document.querySelector('.navbar').offsetHeight;
-
-  document.querySelectorAll('a[data-scroll]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-
-      /* distance from page‑top MINUS the fixed‑bar height */
-      const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
 
   // ------------ 2) GSAP SCROLL-IN REVEAL ------------
   // Only proceed if GSAP & ScrollTrigger have loaded
@@ -161,12 +146,4 @@ if (window.gsap && window.ScrollTrigger){
   /* ---------- 5. init ---------- */
   go(0);     // first frame
   start();   // begin auto‑advance 
-
-  // ------------ 5) PLAY NOW BUTTON REDIRECT ------------
-  const playNowBtn = document.querySelector('.cta-btn');
-  if (playNowBtn) {
-    playNowBtn.addEventListener('click', () => {
-      window.location.href = "https://store.steampowered.com/app/3681370/ABYSSAL_BLADE/";
-    });
-  }
 });
