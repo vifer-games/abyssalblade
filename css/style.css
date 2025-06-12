@@ -81,8 +81,7 @@ section {
   color: var(--text-light);
   transition: color .25s;
 }
-.nav-link:hover,
-.nav-link:focus{
+.nav-link:hover{
   color: var(--accent);
 }
 
@@ -702,8 +701,7 @@ copyright,
   transition:filter .25s;
 }
 
-.socials a:hover   img,
-.socials a:focus   img{
+.socials a:hover   img{
   filter:none;                 /* full‑color on hover / focus */
 }
 
