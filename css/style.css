@@ -364,7 +364,6 @@ section {
 /* small screens: shrink play button & close icon */
 @media(max-width:540px){
   .play-btn{ width:4rem; height:4rem; }
-  .close-btn{ width:2.5rem; height:2.5rem; font-size:1.2rem; }
 }
 
 /* ───── Base section wrapper ───── */
@@ -424,7 +423,7 @@ section {
 
   /* responsive sizing */
   max-width:120px;                    /* desktop cap              */
-  width:5vw;                          /* shrinks on small screens */
+  width:3vw;                          /* shrinks on small screens */
   height:auto;
 
   /* base glow (dim) */
@@ -712,6 +711,8 @@ copyright,
   .socials a      { flex:0 0 38px; width:38px; height:38px; }
   .socials        { gap:1.2rem; }      /* smaller gap      */
 }
+
+.close-btn{ display:none !important; }
 
 
 /* ---------------- dev notes button ---------------- */
