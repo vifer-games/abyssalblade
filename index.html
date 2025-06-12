@@ -98,15 +98,19 @@
 
       <button id="close-trailer" class="close-btn" aria-label="Close trailer">✕</button>
 
-      <video id="trailer-video"
-          src="assets/AB_Teaser_Ver_5.mp4"
-          controls
-          playsinline
-          webkit-playsinline>
-      Sorry, your browser can’t play embedded videos.
-      </video>
+      <!-- NEW: YouTube iframe replaces the old <video> -->
+      <iframe
+        id="trailer-frame"
+        src=""                        
+        title="Abyssal Blade – Official Trailer"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+
     </div>
   </aside>
+
 
 <!-- ────── Third section : ABOUT + GAMEPLAY ────── -->
   <section id="gameplay" class="lore" aria-label="About & Gameplay">

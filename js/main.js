@@ -46,49 +46,48 @@ if (window.gsap && window.ScrollTrigger){
   }
 }
 
-/* ───────────── Trailer modal logic ───────────── */
   /* handles  */
   const openBtn  = document.getElementById('open-trailer');
   const modal    = document.getElementById('trailer-modal');
   const closeBtn = document.getElementById('close-trailer');
-  const teaserBG = document.querySelector('.teaser-bg');     // looping 5‑sec video
-  const trailer  = document.getElementById('trailer-video'); // full trailer
+  const teaserBG = document.querySelector('.teaser-bg');   // looping 5-sec video
+  const ytFrame  = document.getElementById('trailer-frame');
 
-  /* helper – open */
+  /* ✦ YouTube embed URL */
+  const YT_EMBED =
+    'https://www.youtube.com/embed/l_7vUWjk0Qg' +
+    '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+
   function openModal () {
-    modal.classList.add('is‑open');
-    document.body.style.overflow = 'hidden'; // stop page scrolling
-    teaserBG.pause();                        // optional – pause background
-    trailer.currentTime = 0;                 // rewind just in case
-    trailer.play();
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    teaserBG.pause();
+
+    /* load & autoplay the trailer */
+    ytFrame.src = YT_EMBED;
   }
 
-  /* helper – close */
   function closeModal () {
-    modal.classList.remove('is‑open');
-    document.body.style.overflow = '';       // re‑enable scrolling
-    teaserBG.play();                         // resume looping teaser
-    trailer.pause();
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    teaserBG.play();
+
+    /* stop the trailer */
+    ytFrame.src = '';
   }
 
   /* events */
   openBtn .addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
 
-  /* close with Esc key */
   window.addEventListener('keyup', e => {
-    if (e.key === 'Escape' && modal.classList.contains('is‑open')) {
-      closeModal();
-    }
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
-  /* optional ‑ click on dark backdrop closes too */
   modal.addEventListener('click', e => {
-    // If the click did NOT happen inside .modal-inner → close.
-    if (!e.target.closest('.modal-inner')) {
-      closeModal();
-    }
+    if (!e.target.closest('.modal-inner')) closeModal();
   });
+
   
   /* ───────────── Dev‑notes modal ───────────── */
   (() => {

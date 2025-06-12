@@ -341,7 +341,7 @@ section {
   z-index:999;                    /* sits above site                       */
 }
 
-.modal.is‑open{
+.modal.is-open{
   opacity:1;
   visibility:visible;
   pointer-events:auto;            /* enable clicks once shown              */
@@ -355,7 +355,7 @@ section {
   aspect-ratio:16/9;
 }
 
-.modal-inner video{
+.modal-inner iframe{
   width:100%;
   height:100%;
   object-fit:cover;
