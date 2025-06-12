@@ -423,7 +423,7 @@ section {
 
   /* responsive sizing */
   max-width:120px;                    /* desktop cap              */
-  width:3vw;                          /* shrinks on small screens */
+  width:2vw;                          /* shrinks on small screens */
   height:auto;
 
   /* base glow (dim) */
@@ -512,7 +512,7 @@ section {
 .slide-content h3 {
   display: inline-block;      /* shrink to fit content */
   position: relative;         /* for the ::after to position itself */
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
 }
