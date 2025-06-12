@@ -423,26 +423,37 @@ section {
 }
 
 /* horizontal ornament that sits between About & Carousel */
+/* ───────── Divider emblem ───────── */
 .section-divider{
   display:block;
-  pointer-events:none;   /* it’s decorative – ignore mouse hits  */
+  pointer-events:none;                /* purely decorative        */
   transform: rotate(270deg);
-  /* make sure the file can shrink responsively */
-  max-width: 120px;           /* tweak or remove if you want full size */
-  width: 5vw;                /* scales on very small screens          */
+
+  /* responsive sizing */
+  max-width:120px;                    /* desktop cap              */
+  width:5vw;                          /* shrinks on small screens */
   height:auto;
-  
-  /* white‑glow */
-  filter: drop-shadow(0 0   4px rgba(255,255,255,.65))
-          drop-shadow(0 0 10px rgba(255,255,255,.45));
-  transition:filter .25s ease;        /* optional hover polish */
+
+  /* base glow (dim) */
+  filter: drop-shadow(0 0  4px rgba(255,255,255,.55))
+          drop-shadow(0 0 5px rgba(255,255,255,.35));
+
+  /* NEW – pulse animation */
+  animation:pulse-glow 3.5s ease-in-out infinite;
 }
 
-.section-divider:hover{
-  /* subtle brighten on hover / focus */
-  filter: drop-shadow(0 0  6px rgba(255,255,255,.85))
-          drop-shadow(0 0 14px rgba(255,255,255,.60));
+/* ───── keyframes ───── */
+@keyframes pulse-glow{
+  0%,100%{
+    filter: drop-shadow(0 0  3px rgba(255,255,255,.55))
+            drop-shadow(0 0 5px rgba(255,255,255,.35));
+  }
+  50%{
+    filter: drop-shadow(0 0  6px rgba(255,255,255,.95))
+            drop-shadow(0 0 5px rgba(255,255,255,.65));
+  }
 }
+
 
 @media(max-width:540px){
   .section-divider{ width:10vw;}
