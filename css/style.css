@@ -361,13 +361,6 @@ section {
   object-fit:cover;
 }
 
-.close-btn{
-  position:absolute; top:-2.5rem; right:-2.5rem;
-  background:#e40927; color:#fff;
-  border:none; border-radius:50%; width:3rem; height:3rem;
-  font-size:1.5rem; cursor:pointer;
-}
-
 /* small screens: shrink play button & close icon */
 @media(max-width:540px){
   .play-btn{ width:4rem; height:4rem; }
