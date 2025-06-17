@@ -201,4 +201,15 @@ document.querySelectorAll('nav a[href^="#"]').forEach(link=>{
   });
 });
 
+  /* wait for EVERYTHING (images, videos, fonts) */
+  window.addEventListener('load', () => {
+    const pre = document.getElementById('preloader');
+    if (!pre) return;
+
+    /* allow CSS transition, then remove from DOM */
+    pre.classList.add('done');
+    setTimeout(()=> pre.remove(), 500);        // match CSS .4s
+  });
+
+
 });
