@@ -126,7 +126,7 @@ section {
   right: 0; top: 60%;
   transform: translateY(-50%);
   font-size: 0.7em;        /* smaller than the text itself */
-  opacity: 0.75;           /* subtle, but visible          */
+  opacity: 1;           /* subtle, but visible          */
   transition: opacity 0.2s;
 }
 
