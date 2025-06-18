@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABYSSAL BLADE · Press Kit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- inherit your main font & colour variables -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Google Fonts – Cinzel Decorative -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+
+  <!-- light, self-contained tweaks just for this page -->
+  <style>
+  /* ───────── Wrapper: centres the panel ───────── */
+  .factsheet-wrapper{
+    display:flex;
+    align-items:center;        /* vertical centering   */
+    justify-content:center;    /* horizontal centering */
+    min-height:100vh;          /* fill full viewport   */
+    padding:2rem;              /* keeps edges off-screen on mobiles */
+  }
+
+  /* ───────── The panel itself ───────── */
+  .factsheet{
+    --panel-bg: rgba(9,3,16,.70);
+    --panel-border: var(--accent);
+
+    display:inline-block;      /* shrink-to-fit width  */
+    padding:2.5rem 2rem;
+    background:var(--panel-bg);
+    backdrop-filter:blur(6px);
+    border-left:4px solid var(--panel-border);
+    border-radius:.35rem;
+  }
+
+  /***  headings – unchanged ***/
+  .factsheet h2{
+    font-family:"Cinzel Decorative",serif;
+    font-weight:700;
+    font-kerning:none;
+    font-feature-settings:"kern" 0;
+    letter-spacing:.04em;
+    font-size:2.2rem;
+    margin:0 0 1.8rem;
+  }
+
+  /***  definition list grid  ***/
+  .factsheet dl{
+    display:grid;
+    grid-template-columns:auto 1fr; /* label → auto width */
+    gap:1.15rem 1.2rem;
+    margin:0;
+  }
+
+  .factsheet dt{
+    font-family:"Cinzel Decorative",serif;
+    font-weight:700;
+    letter-spacing:.03em;
+  }
+
+  .factsheet dd{
+    margin:0;
+    font-family:"Merriweather",serif;
+    line-height:1.65;
+  }
+
+  .factsheet a{ color:var(--accent); text-decoration:underline; }
+
+  /* —— single-column on very narrow screens —— */
+  @media(max-width:540px){
+    .factsheet dl{ grid-template-columns:1fr; }
+    .factsheet dt{ margin-bottom:.15rem; }
+    .factsheet dd{ padding-bottom:.8rem; }
+  }
+
+    /* wrapper */
+    .press-wrapper{
+      max-width: 960px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* Press-kit headings – same as index */
+    .press-wrapper h1{
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 700;
+      /* disable kerning to match your index */
+      font-kerning: none;
+      font-feature-settings: "kern" 0;
+      letter-spacing: .04em;
+    }
+
+    .press-wrapper h2{
+      font-family: 'Merriweather', serif;
+      font-size:3rem;
+    }
+
+
+
+    /* keep the individual sizes you had */
+    .press-wrapper h1{ font-size:2.4rem; }
+    .press-wrapper h2{ font-size:1.6rem; margin-top:2.8rem; }
+
+    /* Body copy – press kit */
+    .press-wrapper p,
+    .press-wrapper li,            /* list items, too */
+    .press-wrapper small{          /* little legal text, etc. */
+      font-family: "Merriweather", serif;
+      font-size: 1rem;             /* tweak if you need larger */
+      line-height: 1.7;            /* comfortable reading */
+      margin-bottom: 1.2rem;       /* space between paragraphs */
+    }
+
+/* Optional – emphasised text keeps the same face */
+.press-wrapper strong,
+.press-wrapper em{
+  font-family: "Merriweather", serif;
+}
+
+
+    /* nice bulleted list for features */
+    .press-wrapper ul{
+      margin-left: 1.4rem;
+      list-style: disc;
+    }
+
+    /* big obvious download button  */
+    .press-download{
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: .9rem 2.2rem;
+      background: var(--accent);
+      color:#fff;
+      font-weight:700;
+      border-radius:6px;
+      text-decoration:none;
+      transition: background .25s;
+    }
+    .press-download:hover{ background:#a1071c; }
+  </style>
+</head>
+<body>
+  <main class="press-wrapper">
+
+    <!-- ╭──── Factsheet ────╮ -->
+    <section class="factsheet-wrapper">
+      <section class="factsheet">
+        <h2>Factsheet</h2>
+
+        <dl>
+          <dt>Developer</dt>
+          <dd>Vifer Games<br><span>San Francisco Bay Area, CA</span></dd>
+
+          <dt>Release Date</dt>
+          <dd>20 June 2025</dd>
+
+          <dt>Platform</dt>
+          <dd>PC (Steam)</dd>
+
+          <dt>Website</dt>
+          <dd><a href="https://www.abyssalblade.com" target="_blank" rel="noopener">abyssalblade.com</a></dd>
+        </dl>
+      </section>
+    </section>
+    <!-- ╰────────────────────╯ -->
+
+    <h1>PRESS KIT</h1>
+
+    <!-- ------ Description ------ -->
+    <h2>DESCRIPTION</h2>
+    <p>
+      <strong>ABYSSAL BLADE</strong> is a 2-D, pixel-art boss-rush inspired by the demanding
+      mechanics of high-end MMO raids (FFXIV Savage, WoW Mythic, Lost Ark Legion).
+      Armed with <strong>only 1 HP</strong>, the Wanderer battles five bosses—each
+      manifesting a stage of Kübler-Ross grief.  Memorise patterns, execute flawlessly,
+      and strike during narrow damage windows to break free from despair.
+    </p>
+
+    <!-- ------ Features ------ -->
+    <h2>FEATURES</h2>
+    <ul>
+      <li><strong>Single-player Journey –</strong> 100 % boss-rush with a subtle narrative thread.</li>
+      <li><strong>Steam Cloud Saves –</strong> seamless cross-device progression.</li>
+      <li><strong>Five Raid-Inspired Encounters –</strong> each boss sports unique, pattern-dense mechanics.</li>
+      <li><strong>Challenge “Abyss Mode” –</strong> post-game restrictions that reward perfect rotations.</li>
+      <li><strong>Full Controller Support –</strong> Xbox, PlayStation & Steam Deck.</li>
+    </ul>
+
+    <!-- ------ About devs ------ -->
+    <h2>ABOUT VIFER GAMES</h2>
+    <p>
+      ABYSSAL BLADE is created by brothers <strong>Vifer</strong> and <strong>Timmy</strong>.
+      Despite no formal game-dev background, their passion for MMO raiding—especially
+      Final Fantasy XIV’s ultimate fights—drove them to craft a distilled,
+      single-player raid experience in pixel art form.
+    </p>
+
+    <!-- ------ Download ------ -->
+    <h2>PRESS KIT DOWNLOAD</h2>
+    <p>ZIP includes key art, logos, screenshots, and trailer assets.</p>
+    <a class="press-download" href="https://example.com/abyssal-blade-presskit.zip" target="_blank" rel="noopener">Download (250 MB)</a>
+
+  </main>
+</body>
+</html>
