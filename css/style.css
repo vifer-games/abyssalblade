@@ -125,7 +125,7 @@ section {
   position: absolute;
   right: 0; top: 60%;
   transform: translateY(-50%);
-  font-size: 0.7em;        /* smaller than the text itself */
+  font-size: 1em;        /* smaller than the text itself */
   opacity: 1;           /* subtle, but visible          */
   transition: opacity 0.2s;
 }

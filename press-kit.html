@@ -75,7 +75,7 @@
     position: absolute;
     right: 0; top: 60%;
     transform: translateY(-50%);
-    font-size: 0.7em;        /* smaller than the text itself */
+    font-size: 1em;        /* smaller than the text itself */
     opacity: 1;           /* subtle, but visible          */
     transition: opacity 0.2s;
   }
@@ -254,11 +254,11 @@
       margin-bottom: 1.2rem;       /* space between paragraphs */
     }
 
-/* Optional – emphasised text keeps the same face */
-.press-wrapper strong,
-.press-wrapper em{
-  font-family: "Merriweather", serif;
-}
+    /* Optional – emphasised text keeps the same face */
+    .press-wrapper strong,
+    .press-wrapper em{
+      font-family: "Merriweather", serif;
+    }
 
 
     /* nice bulleted list for features */
@@ -293,6 +293,8 @@
       margin-top: 3rem;
       border-top: 1px solid rgba(255,255,255,.08);
       padding-top: 2.2rem;
+      padding-left:1rem;
+      padding-right:1rem;
     }
 
     /* section heading */
