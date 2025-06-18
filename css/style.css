@@ -114,6 +114,22 @@ section {
   color: var(--accent);
 }
 
+.nav-external{
+  position: relative;      /* = anchor for the pseudo-element */
+  padding-right: 1.15em;   /* room for the little arrow */
+}
+
+/* tiny ↗ arrow */
+.nav-external:hover::after{
+  content: "↗";            /* or use Font-Awesome / an SVG if you prefer */
+  position: absolute;
+  right: 0; top: 60%;
+  transform: translateY(-50%);
+  font-size: 0.7em;        /* smaller than the text itself */
+  opacity: 0.75;           /* subtle, but visible          */
+  transition: opacity 0.2s;
+}
+
 /* social icons – reuse footer style */
 .nav-right img{
   width: 28px; height: 28px;

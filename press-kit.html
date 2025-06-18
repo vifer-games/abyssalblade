@@ -20,6 +20,98 @@
 
   <!-- light, self-contained tweaks just for this page -->
   <style>
+
+    /* ───────────── Sticky navigation ───────────── */
+  .navbar{
+    position: fixed;
+    inset: 0 0 auto 0;            /* top:0; left/right:0 */
+    height: 64px;                 /* tweak to taste       */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1000;
+
+    /* subtle translucent backdrop */
+    background: rgba(9,3,16,0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  /* left / right clusters */
+  .nav-left,
+  .nav-right{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* logo */
+  .nav-left .logo img{
+    height: 40px;                 /* keeps it small       */
+    width:  auto;
+  }
+
+  /* text links */
+  .nav-link{
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--text-light);
+    transition: color .25s;
+  }
+  .nav-link:hover{
+    color: var(--accent);
+  }
+
+  .nav-external{
+    position: relative;      /* = anchor for the pseudo-element */
+    padding-right: 1.15em;   /* room for the little arrow */
+  }
+
+  /* tiny ↗ arrow */
+  .nav-external:hover::after{
+    content: "↗";            /* or use Font-Awesome / an SVG if you prefer */
+    position: absolute;
+    right: 0; top: 60%;
+    transform: translateY(-50%);
+    font-size: 0.7em;        /* smaller than the text itself */
+    opacity: 0.75;           /* subtle, but visible          */
+    transition: opacity 0.2s;
+  }
+
+  /* social icons – reuse footer style */
+  .nav-right img{
+    width: 28px; height: 28px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0) invert(1);
+    transition: filter .25s;
+  }
+  .nav-right a:hover img{ filter:none; }
+
+  /* ───── nav‑bar variant of the main CTA ───── */
+  .navbar .cta-btn{        /* only when the button lives in .navbar   */
+    margin: 0;             /* ← kill the 3 rem hero margin            */
+    display: flex;         /* keep text perfectly centred vertically  */
+    align-items: center;
+    justify-content: center;
+    line-height: 1;        /* tidy up baseline mis‑alignments         */
+  }
+
+  /* compact button variant */
+  .cta-btn.small{
+    padding: 0.6rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  /* ───── Responsive tweaks ───── */
+  @media(max-width: 720px){
+    .nav-left  { gap: .5rem; }
+    .nav-right { gap: .5rem; }
+    .nav-link  { display:none; }      /* hide text links on tiny screens */
+    .navbar .cta-btn {display:none; }
+  }
+
   /* ───────── Wrapper: centres the panel ───────── */
   .factsheet-wrapper{
     display:flex;
@@ -34,7 +126,11 @@
     --panel-bg: rgba(9,3,16,.70);
     --panel-border: var(--accent);
 
-    display:inline-block;      /* shrink-to-fit width  */
+    display:grid;
+    grid-template-columns: 1fr auto;     /* text | image  */
+    align-items:center;                  /* vertical align */
+    place-items:start center;
+    gap:2.5rem;
     padding:2.5rem 2rem;
     background:var(--panel-bg);
     backdrop-filter:blur(6px);
@@ -42,13 +138,25 @@
     border-radius:.35rem;
   }
 
-  /***  headings – unchanged ***/
-  .factsheet h2{
+  /* left column keeps previous typography rules */
+  .factsheet-text{ min-width:240px; }   /* prevents labels from squishing */
+
+  /* right-hand art */
+  .factsheet-art{
+    width:340px;           /* desktop size */
+    max-width:40vw;        /* never exceed 40 % of viewport */
+    height:auto;
+    border-radius:.35rem;
+    box-shadow:0 0 12px rgba(0,0,0,.45);
+  }
+
+  .factsheet-wrapper .factsheet h2{
     font-family:"Cinzel Decorative",serif;
-    font-weight:700;
-    font-kerning:none;
-    font-feature-settings:"kern" 0;
-    letter-spacing:.04em;
+    font-weight: 700;
+    /* disable kerning to match your index */
+    font-kerning: none;
+    font-feature-settings: "kern" 0;
+    letter-spacing: .04em;
     font-size:2.2rem;
     margin:0 0 1.8rem;
   }
@@ -62,7 +170,7 @@
   }
 
   .factsheet dt{
-    font-family:"Cinzel Decorative",serif;
+    font-family:"Merriweather",serif;
     font-weight:700;
     letter-spacing:.03em;
   }
@@ -75,10 +183,35 @@
 
   .factsheet a{ color:var(--accent); text-decoration:underline; }
 
+    /* ⬤  factsheet image  */
+  .factsheet-art{
+    width: 340px;                   /* desktop size                 */
+    max-width: 45vw;                /* never exceed 45 % of viewport */
+    height: auto;
+    border-radius: .35rem;
+    box-shadow: 0 0 12px rgba(0,0,0,.45);
+  }
+
+  /* stack vertically on narrow screens */
+  @media (max-width: 640px){
+    .factsheet-wrapper{
+      flex-direction: column;
+    }
+    .factsheet{
+      grid-template-columns:1fr;   /* stack */
+      text-align:center;
+    }
+    .factsheet-art{
+      width: 90%;                   /* full-width on mobiles        */
+      order: -1;                    /* image appears above panel    */
+      max-width: none;
+    }
+  }
+
   /* —— single-column on very narrow screens —— */
   @media(max-width:540px){
-    .factsheet dl{ grid-template-columns:1fr; }
-    .factsheet dt{ margin-bottom:.15rem; }
+    .factsheet dl{ grid-template-columns:1fr; row-gap: .15rem;}
+    .factsheet dt{ margin:0rem; }
     .factsheet dd{ padding-bottom:.8rem; }
   }
 
@@ -147,29 +280,70 @@
       transition: background .25s;
     }
     .press-download:hover{ background:#a1071c; }
+
   </style>
 </head>
 <body>
+  <header class="navbar">
+    <!-- ◄── left side -->
+    <nav class="nav-left">
+      <span  class="logo">
+        <img src="assets/logo-resized.png" alt="VIFER GAMES">
+      </span>
+
+      <!-- in‑page anchors -->
+      <a href="index.html#home"     class="nav-link">HOME</a>
+      <a href="index.html#trailer"  class="nav-link">TRAILER</a>
+      <a href="index.html#gameplay" class="nav-link">GAMEPLAY</a>
+      <a href="press-kit.html"
+        class="nav-link nav-external"
+        target="_blank"
+        rel="noopener">PRESS&nbsp;KIT</a>
+    </nav>
+
+    <!-- ►── right side -->
+    <nav class="nav-right">
+      <!-- social icons (reuse the same PNG / SVG you used in the footer) -->
+      <a href="https://store.steampowered.com/app/3681370"  aria-label="Steam"  target="_blank" rel="noopener noreferrer"><img src="assets/icon_steam.svg"  alt=""></a>
+      <a href="https://www.youtube.com/watch?v=KMLc9ujKsbo&t&ab_channel=Vifer" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><img src="assets/icon_youtube.png"  alt=""></a>
+      <a href="https://x.com/Vifer_" aria-label="X" target="_blank" rel="noopener noreferrer"><img src="assets/icon_x.png"        alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv" aria-label="Discord" target="_blank" rel="noopener noreferrer"><img src="assets/icon_discord.png" alt=""></a>
+      <a href="https://open.spotify.com/album/YourAlbumID" aria-label="Spotify" target="_blank" rel="noopener noreferrer"><img src="assets/icon_spotify.png" alt=""></a>
+
+      <!-- primary CTA -->
+      <a class="cta-btn small"
+        href="https://store.steampowered.com/app/3681370/ABYSSAL_BLADE/"
+        target="_blank"                
+        rel="noopener noreferrer"> Play Now   
+      </a>
+    </nav>
+  </header>
   <main class="press-wrapper">
 
     <!-- ╭──── Factsheet ────╮ -->
     <section class="factsheet-wrapper">
       <section class="factsheet">
-        <h2>Factsheet</h2>
+        <div class="factsheet-text">
+          <h2>Factsheet</h2>
 
-        <dl>
-          <dt>Developer</dt>
-          <dd>Vifer Games<br><span>San Francisco Bay Area, CA</span></dd>
+          <dl>
+            <dt>DEVELOPER</dt>
+            <dd>Vifer Games<br><span>San Francisco Bay Area, CA</span></dd>
 
-          <dt>Release Date</dt>
-          <dd>20 June 2025</dd>
+            <dt>RELEASE DATE</dt>
+            <dd>20 June 2025</dd>
 
-          <dt>Platform</dt>
-          <dd>PC (Steam)</dd>
+            <dt>PLATFORM</dt>
+            <dd>PC (Steam)</dd>
 
-          <dt>Website</dt>
-          <dd><a href="https://www.abyssalblade.com" target="_blank" rel="noopener">abyssalblade.com</a></dd>
-        </dl>
+            <dt>WEBSITE</dt>
+            <dd><a href="https://www.abyssalblade.com" target="_blank" rel="noopener">abyssalblade.com</a></dd>
+          </dl>
+        </div>
+      <!-- right-hand key art / logo / screenshot -->
+      <img src="assets/ab_ost album art.png"
+       alt="Abyssal Blade key art"
+       class="factsheet-art">
       </section>
     </section>
     <!-- ╰────────────────────╯ -->
@@ -199,16 +373,22 @@
     <!-- ------ About devs ------ -->
     <h2>ABOUT VIFER GAMES</h2>
     <p>
-      ABYSSAL BLADE is created by brothers <strong>Vifer</strong> and <strong>Timmy</strong>.
-      Despite no formal game-dev background, their passion for MMO raiding—especially
-      Final Fantasy XIV’s ultimate fights—drove them to craft a distilled,
-      single-player raid experience in pixel art form.
+      Vifer first gained a following on YouTube and Twitch in 2021 by covering Arknights, a popular mobile gacha game. In early 2024, he stepped away from content creation to pursue game development.
+    </p>
+    <p>
+      What began as a solo project soon became a family collaboration when Vifer’s brother, Timmy, joined as lead programmer, allowing Vifer to concentrate on art direction and gameplay. The brothers shared a deep affinity for MMO raid content.
+    </p>
+    <p>
+      The creation of ABYSSAL BLADE was heavily driven by Vifer’s fascination with Final Fantasy XIV’s Savage/Ultimate raids and on Timmy’s enthusiasm for Mabinogi’s raid encounters. They especially admired raids that felt like logic-driven puzzles rather than pure reflex challenges typical of many soulslike titles.
+    </p>
+    <p>
+      Yet, these finely crafted fights were usually locked behind hundreds of hours of grinding in traditional MMOs. The brothers' goal was to remove that barrier and to package the exhilaration of high-level MMO raids into a single-player experience that anyone can pick up, study, and ultimately conquer—no stats, no RNG, just pure tactical mastery.
     </p>
 
     <!-- ------ Download ------ -->
     <h2>PRESS KIT DOWNLOAD</h2>
     <p>ZIP includes key art, logos, screenshots, and trailer assets.</p>
-    <a class="press-download" href="https://example.com/abyssal-blade-presskit.zip" target="_blank" rel="noopener">Download (250 MB)</a>
+    <a class="press-download" href="assets/AB_Press_Kit.zip" target="_blank" rel="noopener">Download (181 MB)</a>
 
   </main>
 </body>
