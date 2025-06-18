@@ -281,6 +281,68 @@
     }
     .press-download:hover{ background:#a1071c; }
 
+    /* ─────────────── Footer wrapper ─────────────── */
+    .site‑footer{
+      display:flex;
+      flex-direction:column;   /* stack items vertically           */
+      align-items:center;      /* center EVERYTHING horizontally   */
+      padding:3rem;     /* top / bottom breathing‑room      */
+      text-align:center;
+      gap:2rem;
+    }
+
+    /* studio logo */
+    .footer‑logo{
+      width:10rem;             /* tweak to taste; auto height      */
+      height:auto;
+    }
+
+    /* legal line */
+    copyright,
+    .site‑footer small{        /* in case you already used <p>     */
+      font-size:.72rem;
+      line-height:.1rem;
+      opacity:.75;
+      letter-spacing:.03em;
+    }
+
+    /* ───────────── Social icon bar ───────────── */
+    .socials{
+      display:flex;
+      justify-content:center;      /* centers whole row */
+      gap:2.2rem;                  /* even spacing */
+      flex-wrap:nowrap;         /* ← *forces* a single line */
+      flex-direction:row;
+    }
+
+    .socials a{
+      display:inline-block;
+      width:48px; height:48px;     /* exact same size for every icon */
+      flex:0 0 48px;               /* no shrinking / growing         */
+    }
+
+    .socials img{
+      width:100%;
+      height:100%;
+      object-fit:contain;          /* keeps the original proportions */
+      /* 🔸 make everything white/gray: */
+      filter:
+        grayscale(1)   /* strip all colour                */
+        brightness(0)  /* make it full‑black               */
+        invert(1);     /* then invert → full‑white         */
+      transition:filter .25s;
+    }
+
+    .socials a:hover   img{
+      filter:none;                 /* full‑color on hover / focus */
+    }
+
+    @media (max-width:460px){
+      .socials a      { flex:0 0 38px; width:38px; height:38px; }
+      .socials        { gap:1.2rem; }      /* smaller gap      */
+    }
+
+    .close-btn{ display:none !important; }
   </style>
 </head>
 <body>
@@ -391,5 +453,24 @@
     <a class="press-download" href="assets/AB_Press_Kit.zip" target="_blank" rel="noopener">Download (181 MB)</a>
 
   </main>
+  <!-- ─────────────── Footer ─────────────── -->
+  <footer class="site‑footer">
+
+    <!-- social icons -->
+    <div class="socials">
+      <a href="https://store.steampowered.com/app/3681370"  aria-label="Steam"  target="_blank" rel="noopener noreferrer"><img src="assets/icon_steam.svg"  alt=""></a>
+      <a href="https://www.youtube.com/watch?v=KMLc9ujKsbo&t&ab_channel=Vifer" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><img src="assets/icon_youtube.png"  alt=""></a>
+      <a href="https://x.com/Vifer_" aria-label="X" target="_blank" rel="noopener noreferrer"><img src="assets/icon_x.png"        alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv" aria-label="Discord" target="_blank" rel="noopener noreferrer"><img src="assets/icon_discord.png" alt=""></a>
+      <a href="https://open.spotify.com/album/YourAlbumID" aria-label="Spotify" target="_blank" rel="noopener noreferrer"><img src="assets/icon_spotify.png" alt=""></a>
+    </div>
+
+    <!-- studio logo -->
+    <img class="footer‑logo" src="assets/logo-resized.png" alt="VIFER GAMES logo">
+
+    <!-- tiny legal line -->
+     <small class="copyright">All inquiries to vifer.games@gmail.com</small>
+    <small class="copyright">© 2025 VIFER GAMES, ALL RIGHTS RESERVED.</small>
+  </footer>
 </body>
 </html>
