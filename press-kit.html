@@ -54,6 +54,10 @@
     width:  auto;
   }
 
+  .nav-link.selected{
+    color: var(--accent);
+  }
+
   /* text links */
   .nav-link{
     font-family: "Cinzel", serif;
@@ -286,10 +290,12 @@
 
     /* ───────── Assets list — layout & appearance ───────── */
 
-    .asset-block .h4{
+    .asset-block h4{
       font-family:"Merriweather",serif;
       font-weight:700;
       letter-spacing:.03em;
+      font-size:1.3rem;
+      margin-bottom:2rem;
     }
     
     .assets-list{
@@ -311,14 +317,6 @@
     /* each block (Video / Screens / Logos / Art) */
     .asset-block{
       margin-bottom:2.4rem;
-    }
-
-    /* block heading */
-    .asset-block h4{
-      font-family:"Cinzel Decorative",serif;
-      font-size:1.3rem;
-      margin:0 0 .8rem;
-      letter-spacing:.03em;
     }
 
     /* thumbnail / video preview */
@@ -575,8 +573,8 @@
       <a href="index.html#home"     class="nav-link">HOME</a>
       <a href="index.html#trailer"  class="nav-link">TRAILER</a>
       <a href="index.html#gameplay" class="nav-link">GAMEPLAY</a>
-      <a href="press-kit.html"
-        class="nav-link nav-external"
+      <a
+        class="nav-link selected"
         target="_blank"
         rel="noopener">PRESS&nbsp;KIT</a>
     </nav>
@@ -677,7 +675,7 @@
 
       <!-- ───── Video ───── -->
       <article class="asset-block">
-        <h4>Video</h4>
+        <h4>VIDEO</h4>
           <video class="asset-video"
                 src="assets/AB_Announcement_Teaser.mp4"
                 controls
@@ -690,7 +688,7 @@
 
       <!-- ───── Logos ───── -->
       <article class="asset-block">
-        <h4>Logos</h4>
+        <h4>LOGOS</h4>
         <div class="asset-grid two-up">
           <figure>
             <a href="assets/abyssal blade_logo_white.png"
@@ -712,7 +710,7 @@
 
       <!-- ───── Key Art ───── -->
       <article class="asset-block">
-        <h4>Art</h4>
+        <h4>ART</h4>
         <div class="asset-grid">
           <figure>
             <a href="assets/abyssal blade_cover art with logo.png"
@@ -742,7 +740,7 @@
 
       <!-- ───── Screenshots ───── -->
       <article class="asset-block">
-        <h4>Screenshots</h4>
+        <h4>SCREENSHOTS</h4>
         <div class="asset-grid">
           <!-- 1-5 thumbnails – all part of the “screens” group -->
           <figure>
@@ -810,6 +808,11 @@
       <a href="https://discord.com/invite/Xj3YbQprfv" aria-label="Discord" target="_blank" rel="noopener noreferrer"><img src="assets/icon_discord.png" alt=""></a>
       <a href="https://open.spotify.com/album/YourAlbumID" aria-label="Spotify" target="_blank" rel="noopener noreferrer"><img src="assets/icon_spotify.png" alt=""></a>
     </div>
+
+      <a href="press-kit.html"
+        class="cta-btn press-kit"
+        target="_blank"
+        rel="noopener">PRESS&nbsp;KIT</a>
 
     <!-- studio logo -->
     <img class="footer‑logo" src="assets/logo-resized.png" alt="VIFER GAMES logo">

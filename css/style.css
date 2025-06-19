@@ -750,6 +750,10 @@ copyright,
   filter:none;                 /* full‑color on hover / focus */
 }
 
+.cta-btn.press-kit{
+  margin-top:0rem;
+}
+
 @media (max-width:460px){
   .socials a      { flex:0 0 38px; width:38px; height:38px; }
   .socials        { gap:1.2rem; }      /* smaller gap      */
