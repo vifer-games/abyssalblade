@@ -201,15 +201,24 @@ document.querySelectorAll('nav a[href^="#"]').forEach(link=>{
   });
 });
 
-  /* wait for EVERYTHING (images, videos, fonts) */
-  window.addEventListener('load', () => {
-    const pre = document.getElementById('preloader');
-    if (!pre) return;
+/* ─────────── Pre-loader: dismiss EARLY ─────────── */
 
-    /* allow CSS transition, then remove from DOM */
-    pre.classList.add('done');
-    setTimeout(()=> pre.remove(), 500);        // match CSS .4s
-  });
+/* helper – run once */
+function killPreloader () {
+  const pre = document.getElementById('preloader');
+  if (!pre || pre.classList.contains('done')) return;     // guard
+  pre.classList.add('done');              // CSS fade-out (.4 s)
+  setTimeout(() => pre.remove(), 400);    // remove from DOM
+}
 
+/* 1) DOM is parsed + CSSOM built (earlier than window.load) */
+killPreloader();   // run once right away—most cases this is enough
+
+/* 2) ALSO listen for the hero image in case CSS blocked paint */
+const hero = document.querySelector('.hero-bg');
+if (hero && !hero.complete) hero.addEventListener('load', killPreloader);
+
+/* 3) Fail-safe: nuke spinner after 6 s max */
+setTimeout(killPreloader, 6000);
 
 });
