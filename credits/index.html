@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABYSSAL BLADE · Credits</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ────── Shared assets / fonts ────── -->
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon.png" sizes="32x32" type="image/png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"           rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"         defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <!-- ────── Page-specific tweaks ────── -->
+  <style>
+    /* wrapper mirrors .press-wrapper */
+    .credits-wrapper{
+      max-width: 960px;
+      margin: 6rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    /* headings reuse main fonts */
+    .credits-wrapper h1{
+      font-family:"Cinzel Decorative",serif;
+      font-size:2.6rem;
+      letter-spacing:.04em;
+      margin-bottom:2.2rem;
+      text-align:center;
+    }
+    .credits-wrapper h2{
+      font-family:"Merriweather",serif;
+      font-size:1.5rem;
+      margin:3.2rem 0 1.6rem;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    /* credit grid */
+    .credit-grid{
+      display:grid;
+      gap:1.2rem 2.4rem;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .credit-card{
+      background:rgba(9,3,16,.70);
+      backdrop-filter:blur(6px);
+      border-left:4px solid var(--accent);
+      border-radius:.35rem;
+      padding:1.4rem 1.2rem;
+    }
+      .credit-card h3{
+        font-family:"Merriweather",serif;
+        font-weight:700;
+        margin:0 0 .4rem;
+        font-size:1.05rem;
+      }
+      .credit-card p{
+        margin:0;
+        font-family:"Merriweather",serif;
+        font-size:.94rem;
+        opacity:.88;
+      }
+
+    /* mobile – single column + tighter gaps */
+    @media(max-width:540px){
+      .credit-grid{ gap:1rem; }
+      .credits-wrapper h1{ font-size:2.2rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ────── Navbar (unchanged) ────── -->
+  <header class="navbar reveal">
+    <nav class="nav-left">
+      <span class="logo"><img src="/assets/logo-resized.png" alt="VIFER GAMES"></span>
+      <a href="/#home"     class="nav-link"  >HOME</a>
+      <a href="/#trailer"  class="nav-link"  >TRAILER</a>
+      <a href="/#gameplay" class="nav-link"  >GAMEPLAY</a>
+      <a href="/press-kit/"class="nav-link"  >PRESS&nbsp;KIT</a>
+      <a                 class="nav-link selected">CREDITS</a>
+    </nav>
+    <nav class="nav-right">
+      <a href="https://store.steampowered.com/app/3681370"     aria-label="Steam"   target="_blank" rel="noopener"><img src="/assets/icon_steam.svg"  alt=""></a>
+      <a href="https://www.youtube.com/@Vifer"                 aria-label="YouTube" target="_blank" rel="noopener"><img src="/assets/icon_youtube.png" alt=""></a>
+      <a href="https://x.com/Vifer_"                           aria-label="X"       target="_blank" rel="noopener"><img src="/assets/icon_x.png"       alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv"          aria-label="Discord" target="_blank" rel="noopener"><img src="/assets/icon_discord.png"alt=""></a>
+      <a class="cta-btn small" href="https://store.steampowered.com/app/3681370/ABYSSAL_BLADE/" target="_blank" rel="noopener">Play Now</a>
+    </nav>
+  </header>
+
+  <!-- ────── Main content ────── -->
+  <main class="credits-wrapper">
+
+    <h1 class="reveal">ABYSSAL BLADE · Credits</h1>
+
+    <!-- — Vifer Games core team — -->
+    <h2 class="reveal">Vifer&nbsp;Games</h2>
+    <div class="credit-grid reveal">
+      <div class="credit-card">
+        <h3>Bob “Vifer” Liu</h3>
+        <p>Creative Director · Gameplay Design · Lead Artist · Story Concept</p>
+      </div>
+      <div class="credit-card">
+        <h3>Tim “timmy” Liu</h3>
+        <p>Programmer · Technical Design · Systems · UI</p>
+      </div>
+    </div>
+
+    <!-- — Additional contributors — -->
+    <h2 class="reveal">Additional&nbsp;Contributors</h2>
+    <div class="credit-grid reveal">
+      <!-- repeat pattern -->
+      <div class="credit-card"><h3>Isaak Wolf</h3><p>Composer · Singer</p></div>
+      <div class="credit-card"><h3>Mark Shvedov</h3><p>Sound Director</p></div>
+      <div class="credit-card"><h3>Jonathan “InspectorJ” Shaw</h3><p>Additional Sound Design</p></div>
+      <div class="credit-card"><h3>Sunny Lee</h3><p>Narrative Director · Website Design · Vifer Games Logo</p></div>
+      <div class="credit-card"><h3>Ibrahim “Flexiarts”</h3><p>ABYSSAL BLADE Logo</p></div>
+      <div class="credit-card"><h3>HexH</h3><p>Cover Art Illustration</p></div>
+      <div class="credit-card"><h3>Kiplik “Falah”</h3><p>Main Menu Illustration</p></div>
+      <div class="credit-card"><h3>selzzikk</h3><p>Soundtrack Album Illustration</p></div>
+      <div class="credit-card"><h3>vennobi</h3><p>Additional Artwork</p></div>
+      <div class="credit-card"><h3>Rumby</h3><p>Game Trailers · Logo Animation</p></div>
+      <div class="credit-card"><h3>Penusbmic</h3><p>Sprite Assets · Background Assets</p></div>
+      <div class="credit-card"><h3>CreativeKind</h3><p>Sprite Assets</p></div>
+      <div class="credit-card"><h3>Craftpix</h3><p>Background Assets</p></div>
+      <div class="credit-card"><h3>Cartoon Coffee</h3><p>Additional VFX · Animation</p></div>
+      <div class="credit-card"><h3>Aaron “Memesbruh03” Chand</h3><p>“Superstar” Pixel Font</p></div>
+      <div class="credit-card"><h3>Mandy Smith</h3><p>“Type Writer” Pixel Font</p></div>
+      <div class="credit-card"><h3>Captainskeleto</h3><p>Achievement Icons</p></div>
+    </div>
+
+    <!-- — Core game testers — -->
+    <h2 class="reveal">Core&nbsp;Game&nbsp;Testers</h2>
+    <div class="credit-grid reveal">
+      <div class="credit-card"><h3>Darren Hui</h3></div>
+      <div class="credit-card"><h3>Sunny Lee</h3></div>
+      <div class="credit-card"><h3>Thomas Baxter</h3></div>
+      <div class="credit-card"><h3>William Cen</h3></div>
+      <div class="credit-card"><h3>Yii</h3></div>
+      <div class="credit-card"><h3>Zafang</h3></div>
+    </div>
+
+    <!-- — Thanks — -->
+    <h2 class="reveal">Thanks&nbsp;to&nbsp;All&nbsp;Testers &amp; Contributors</h2>
+    <p class="reveal" style="font-family:'Merriweather',serif;">
+      Chris Chick · Daniel Bao · Emilia Katari · Eric Lu · Fav Q · Frank Yang · Isaak Wolf ·
+      Jesse Du · Kenneth Wang · Lee Rao · Nathan Hoang · Nauy · Richard Chen · Rumby · selzzikk ·
+      Vennobi · WookieeJesus · Xairathan · Yuzong
+    </p>
+
+    <!-- — Engine & Copyright — -->
+    <h2 class="reveal">Developed&nbsp;In</h2>
+    <p class="reveal" style="font-family:'Merriweather',serif;">
+      GODOT ENGINE 4.3<br>
+      Copyright 2007-2019, Juan Linietsky, Ariel Manzur.<br>
+      Copyright 2014-2019, Godot Engine Contributors.
+    </p>
+  </main>
+
+  <!-- ────── Footer (unchanged) ────── -->
+  <footer class="site-footer">
+    <div class="socials">
+      <a href="https://store.steampowered.com/app/3681370"  aria-label="Steam"  target="_blank" rel="noopener"><img src="/assets/icon_steam.svg"  alt=""></a>
+      <a href="https://www.youtube.com/@Vifer"              aria-label="YouTube" target="_blank" rel="noopener"><img src="/assets/icon_youtube.png" alt=""></a>
+      <a href="https://x.com/Vifer_"                        aria-label="X"       target="_blank" rel="noopener"><img src="/assets/icon_x.png"       alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv"       aria-label="Discord" target="_blank" rel="noopener"><img src="/assets/icon_discord.png"alt=""></a>
+      <a href="https://open.spotify.com/album/5BEJ95QI2BeChVIyjzDoli" aria-label="Spotify" target="_blank" rel="noopener"><img src="/assets/icon_spotify.png" alt=""></a>
+    </div>
+
+    <a href="/press-kit/" class="cta-btn press-kit" target="_blank" rel="noopener">PRESS KIT</a>
+    <img class="footer-logo" src="/assets/logo-resized.png" alt="VIFER GAMES logo">
+    <small class="copyright">All inquiries to vifer.games@gmail.com</small>
+    <small class="copyright">© 2025 VIFER GAMES, ALL RIGHTS RESERVED.</small>
+  </footer>
+
+  <!-- Optional GSAP fade-in -->
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      if(!window.gsap||!window.ScrollTrigger)return;
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.reveal').forEach(el=>{
+        gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:1, ease:'power2.out',
+          scrollTrigger:{trigger:el,start:'top 85%'}});
+      });
+    });
+  </script>
+</body>
+</html>
