@@ -55,7 +55,7 @@ if (window.gsap && window.ScrollTrigger){
 
   /* ✦ YouTube embed URL */
   const YT_EMBED =
-    'https://www.youtube.com/embed/l_7vUWjk0Qg' +
+    'https://www.youtube.com/embed/bXvmeNEjM3c' +
     '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
 
   function openModal () {
