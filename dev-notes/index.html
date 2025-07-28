@@ -171,6 +171,68 @@
     @media (prefers-reduced-motion: reduce){
       html { scroll-behavior: auto; }
     }
+
+       /* ─────────────── Footer wrapper ─────────────── */
+
+    body.press-kit{
+      background:#0b0b0b;          /* or any slightly-darker colour */
+    }
+
+    .site‑footer{
+      background:#12121b;          
+      display:flex;
+      flex-direction:column;   /* stack items vertically           */
+      align-items:center;      /* center EVERYTHING horizontally   */
+      padding:3rem;     /* top / bottom breathing‑room      */
+      text-align:center;
+      gap:2rem;
+    }
+
+    /* studio logo */
+    .footer‑logo{
+      width:10rem;             /* tweak to taste; auto height      */
+      height:auto;
+    }
+
+    /* legal line */
+    copyright,
+    .site‑footer small{        /* in case you already used <p>     */
+      font-size:.72rem;
+      line-height:.1rem;
+      opacity:.75;
+      letter-spacing:.03em;
+    }
+
+    /* ───────────── Social icon bar ───────────── */
+    .socials{
+      display:flex;
+      justify-content:center;      /* centers whole row */
+      gap:2.2rem;                  /* even spacing */
+      flex-wrap:nowrap;         /* ← *forces* a single line */
+      flex-direction:row;
+    }
+
+    .socials a{
+      display:inline-block;
+      width:48px; height:48px;     /* exact same size for every icon */
+      flex:0 0 48px;               /* no shrinking / growing         */
+    }
+
+    .socials img{
+      width:100%;
+      height:100%;
+      object-fit:contain;          /* keeps the original proportions */
+      /* 🔸 make everything white/gray: */
+      filter:
+        grayscale(1)   /* strip all colour                */
+        brightness(0)  /* make it full‑black               */
+        invert(1);     /* then invert → full‑white         */
+      transition:filter .25s;
+    }
+
+    .socials a:hover   img{
+      filter:none;                 /* full‑color on hover / focus */
+    }
   </style>
 </head>
 
