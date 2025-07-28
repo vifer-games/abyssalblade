@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABYSSAL BLADE · Dev Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon.png" sizes="32x32" type="image/png">
+
+  <!-- Shared CSS + Fonts -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <!-- Page-specific styles -->
+  <style>
+    :root { --nav-h: 64px; }
+
+    /* Layout */
+    .devnotes-wrapper{
+      max-width: 1400px;
+      margin: calc(var(--nav-h) + 4px) auto 4rem;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Sticky left TOC */
+    .devnotes-toc{
+      position: sticky;
+      top: calc(var(--nav-h) + 16px);
+      align-self: start;
+      background: rgba(9,3,16,.70);
+      backdrop-filter: blur(6px);
+      border-left: 4px solid var(--accent);
+      border-radius: .35rem;
+      padding: 1rem 1rem 1.2rem;
+    }
+    .devnotes-toc h2{
+      font-family: "Cinzel Decorative", serif;
+      font-size: 1.2rem;
+      letter-spacing: .04em;
+      margin: .2rem 0 1rem;
+    }
+    .toc-list{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: .25rem;
+    }
+    .toc-list a{
+      display: block;
+      padding: .45rem .5rem;
+      border-radius: .35rem;
+      text-decoration: none;
+      color: var(--text-light);
+      font-family: "Merriweather", serif;
+      font-size: .95rem;
+      line-height: 1.4;
+      transition: background .2s, color .2s;
+    }
+    .toc-list a:hover{ color: var(--accent); }
+    .toc-list a.active{
+      background: rgba(255,255,255,.08);
+      color: var(--accent);
+    }
+
+    /* Mobile top sticky dropdown */
+    .toc-mobile{
+      position: sticky;
+      top: calc(var(--nav-h));
+      z-index: 900;
+      background: rgba(9,3,16,.85);
+      backdrop-filter: blur(6px);
+      padding: .5rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: none; /* desktop hidden */
+    }
+    .toc-mobile label{
+      font-family: "Merriweather", serif;
+      font-size: .9rem;
+      margin-right: .5rem;
+      opacity: .9;
+    }
+    .toc-mobile select{
+      width: 100%;
+      max-width: 480px;
+      padding: .5rem .75rem;
+      background: rgba(0,0,0,.35);
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: .35rem;
+      font-family: "Merriweather", serif;
+    }
+
+    /* Main content column */
+    .devnotes-content{
+      min-width: 0; /* prevent overflow */
+    }
+    .devnotes-title{
+      text-align: center;
+      font-family: "Cinzel Decorative", serif;
+      letter-spacing: .04em;
+      font-size: 2.4rem;
+      margin: 0 0 2rem;
+    }
+
+    /* Section blocks */
+    .devnote-section{
+      background: rgba(9,3,16,.70);
+      backdrop-filter: blur(6px);
+      border-radius: .35rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.6rem;
+      scroll-margin-top: calc(var(--nav-h) + 24px); /* anchor offset under fixed nav */
+    }
+    .devnote-section + .devnote-section{ margin-top: 1.2rem; }
+
+    .devnote-section h3{
+      font-family: "Merriweather", serif;
+      font-size: 1.6rem;
+      letter-spacing: .02em;
+      margin: .2rem 0 1rem;
+    }
+    .devnote-section p{
+      text-align: left;
+      font-family: "Merriweather", serif;
+      line-height: 1.75;
+      font-size: 1rem;
+      margin: 0 0 1rem;
+    }
+
+    /* Inline art for part 5 */
+    .inline-art{
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: .35rem;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 0 12px rgba(0,0,0,.45);
+      margin: .75rem 0 .25rem;
+    }
+    .img-caption{
+      font-family: "Merriweather", serif;
+      font-size: .9rem;
+      opacity: .8;
+      text-align: center;
+      margin: .25rem 0 .5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .devnotes-wrapper{
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .devnotes-toc{ display: none; }
+      .toc-mobile{ display: block; }
+      .devnotes-title{ margin-top: 1rem; }
+    }
+
+    /* Respect reduced motion users */
+    @media (prefers-reduced-motion: reduce){
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar (same pattern, with DEV NOTES selected) -->
+  <header class="navbar">
+    <nav class="nav-left">
+      <span class="logo">
+        <img src="/assets/logo-resized.png" alt="VIFER GAMES">
+      </span>
+      <a href="/#home"     class="nav-link">HOME</a>
+      <a href="/#trailer"  class="nav-link">TRAILER</a>
+      <a href="/#gameplay" class="nav-link">GAMEPLAY</a>
+      <a href="/press-kit/" class="nav-link">PRESS&nbsp;KIT</a>
+      <a class="nav-link selected">DEV&nbsp;NOTES</a>
+    </nav>
+
+    <nav class="nav-right">
+      <a href="https://store.steampowered.com/app/3681370" aria-label="Steam"   target="_blank" rel="noopener"><img src="/assets/icon_steam.svg"   alt=""></a>
+      <a href="https://www.youtube.com/@Vifer"              aria-label="YouTube" target="_blank" rel="noopener"><img src="/assets/icon_youtube.png" alt=""></a>
+      <a href="https://x.com/Vifer_"                        aria-label="X"       target="_blank" rel="noopener"><img src="/assets/icon_x.png"       alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv"       aria-label="Discord" target="_blank" rel="noopener"><img src="/assets/icon_discord.png" alt=""></a>
+      <a class="cta-btn small" href="https://store.steampowered.com/app/3681370/ABYSSAL_BLADE/" target="_blank" rel="noopener">Play Now</a>
+    </nav>
+  </header>
+
+  <!-- Mobile TOC -->
+  <div class="toc-mobile">
+    <label for="tocSelect">Jump to section</label>
+    <select id="tocSelect" aria-label="Dev Notes sections">
+      <option value="#prologue">Prologue</option>
+      <option value="#obsession">It Began with an Obsession</option>
+      <option value="#grief">Dealing with Grief</option>
+      <option value="#family">A Family Bond</option>
+      <option value="#enemy">Our Biggest Enemy</option>
+      <option value="#everything">Everything Mattered</option>
+    </select>
+  </div>
+
+  <!-- Main -->
+  <main class="devnotes-wrapper">
+    <!-- Left sticky TOC -->
+    <aside class="devnotes-toc" aria-label="Section navigation">
+      <h2>Dev Notes</h2>
+      <ol class="toc-list">
+        <li><a href="#prologue"   data-target="#prologue">Prologue</a></li>
+        <li><a href="#obsession"  data-target="#obsession">It Began with an Obsession</a></li>
+        <li><a href="#grief"      data-target="#grief">Dealing with Grief</a></li>
+        <li><a href="#family"     data-target="#family">A Family Bond</a></li>
+        <li><a href="#enemy"      data-target="#enemy">Our Biggest Enemy</a></li>
+        <li><a href="#everything" data-target="#everything">Everything Mattered</a></li>
+      </ol>
+    </aside>
+
+    <!-- Content -->
+    <section class="devnotes-content">
+
+      <h1 class="devnotes-title reveal">Dev Notes</h1>
+
+      <!-- 1 Prologue -->
+      <section id="prologue" class="devnote-section reveal" tabindex="-1">
+        <h3>Prologue</h3>
+        <p>
+            Hello there! Welcome to my dev notes. I appreciate you taking the time out of your day to read this.
+        </p>
+        <p>
+            My name is Bob and I'm the creator of ABYSSAL BLADE. Many people know me as Vifer, which was my internet name from when I used to be a YouTuber and Twitch streamer. But that’s in the past now. I’m just a 27-year old guy trying to figure out what I’m doing with my life.
+        </p>
+        <p>
+            ABYSSAL BLADE is not the first game I developed. I created my first game alone back in 2020 called TITAN, a short visual novel. It was a tiny project that I finished in under 2 months, tons of stock images and music used, a UI that I slapped together in Photoshop, and the game was published on Itch.io for free. But that experience was unforgettable. I still remember the countless days of waking up at 6AM startled by a new idea that I needed to implement in the moment. It was after that journey that I knew I wanted to return to game dev some day. Soon after TITAN, I became busy with work, life, and eventually pivoted my free time to content creation. It wasn’t until 2024 after I had retired from content creation that I finally found the time to pursue game development again.
+        </p>
+        <p>
+            So here we are. These dev notes serve to shine light on what actually went into ABYSSAL BLADE and how this project came to life. One thing that isn't stressed enough across the games industry is the brutality of developing an indie game. No one can just sit down one day and just… start creating a game. A game needs the right time, the right place, the right circumstance, the right people–everything needs to be right. It's an excruciating set of circumstances that need to be achieved just to start creating… anything. And I wish those kinds of journeys were brought more to light. 
+        </p>
+        <p>
+            Hopefully our story can help some devs gain insight into how something like ABYSSAL BLADE was actually made. Enjoy :) 
+        </p>
+      </section>
+
+      <!-- 2 It Began with an Obsession -->
+      <section id="obsession" class="devnote-section reveal" tabindex="-1">
+        <h3>It Began with an Obsession</h3>
+        <p>
+          In late 2023, I made a major decision: downloading Final Fantasy XIV.
+        </p>
+        <p>
+            I know right… a bit dramatic for simply starting a video game. But I truly believe this was the beginning to ABYSSAL BLADE.
+        </p>
+        <p>
+            I'm no stranger to MMOs. I grew up with them. To name some, I played RuneScape, Wizard101, Ragnarok Online, Aura Kingdom, Guild Wars 2, MapleStory, Mabinogi, Dungeon Fighter, Lost Ark, TERA, Blade & Soul, Dragon Nest, and the list goes on and on.
+        </p>
+        <p>
+            But when I began FFXIV, something quickly caught my attention: hardcore boss raiding. Boss encounters with complicated pattern-recognition mechanics where eight players needed to coordinate with precise positioning to survive. Varying difficulties all the way up to “Ultimate” raids that were brutal, punishing the whole group for any mistake made by a single person and only to be cleared by the top 5% of all players. And to top it off, a trinity system (tank, healer, dps) with each role requiring a full understanding of over 20 abilities on different cooldowns, hence requiring each player to execute a rotation of their abilities to maximize DPS. It was a type of gameplay that I somehow never encountered up to this point in my life. I’ve played boss rush games. I’ve played souls-like games. And I’ve done raids in other MMOs. But NOTHING compared to what I witnessed in FFXIV. I wasn’t just impressed. I was absolutely obsessed with FFXIV raid design. Hardcore raiding was everything that I wanted, something that was all about strategy and foresight, dodging boss patterns not with i-frames/reaction speed, but through pure intellect and pattern recognition. And an outlet for endless optimization with the trinity class system, making it so that every single run of a raid, you could ALWAYS perform better. Within my first six months of playing FFXIV, I cleared my first savage tier (P9S - P12S) and all five of the existing Ultimate raids at the end of the Endwalker expansion.
+        </p>
+        <p>
+            This kind of design philosophy served as the foundation for ABYSSAL BLADE. If I hadn't spent the thousands of hours in FFXIV hardcore raiding, my creative boundaries would have been severely limited, and I likely wouldn't have come up with a gameplay system anywhere close to what you see in ABYSSAL BLADE today. There is no type of gameplay in this world that has made me feel so invigorated as playing FFXIV savage and ultimate raids, and that's the exact kind of emotion I wished to infuse into ABYSSAL BLADE. 
+        </p>
+      </section>
+
+      <!-- 3 Dealing with Grief -->
+      <section id="grief" class="devnote-section reveal" tabindex="-1">
+        <h3>Dealing with Grief</h3>
+        <p>
+            One of the biggest struggles along ABYSSAL BLADE's development was deciding on what kind of story I wished to tell. Should I make up fictional characters and draw up a fantasy world? Should I have the player moving between physical regions to encounter different bosses? Should the game have elements like fire and ice and wind? I struggled a lot with this because ABYSSAL BLADE was always envisioned as a gameplay-first game. I didn't want the story to be the focus of this game…
+        </p>
+        <p>
+            Grief is something that everyone has felt. It's something that is so hard to convey through words and you can only understand what it felt like after experiencing it yourself. Everyone's journey with grief is different, it comes in all sizes and forms, all intensities. But the fact is that everyone has faced it. And it was something that I was facing in my personal life during the beginning of ABYSSAL BLADE's development.
+        </p>    
+        <p>
+            So in July 2024, that’s what I ran with… that’s what I set out to story-tell. We decided to have the main character of ABYSSAL BLADE unnamed and take on the figure of an ambiguous, shadowy figure. And we decided to name every boss after a stage of grief. No fictional characters. No plot line. Just you and your journey to defeat the five stages of grief.
+        </p>
+        <p>
+            And this storytelling decision influenced everything beyond the context. It is why we went with a very muted color scheme of mostly black/purplish/white. We tried to put boss mechanics in fights that were most appropriate for that emotion. We tried to craft the OST of each stage to match the kind of feeling that the player should be feeling there. And ultimately this is why we went with the 1HP rule in the game. We wanted it to feel like triumphing over a stage of grief wasn't something you could just do so simply. You had to slam yourself against a wall over and over and over, figure out every mechanic through brutal trial and error, and when you failed, you would start all over again and again and again. We wanted this to represent what it felt like to overcome grief. We knew that this kind of gameplay loop would be dissatisfying to many players, but this is the kind of journey that I wanted players to experience.
+        </p>
+      </section>
+
+      <!-- 4 A Family Bond -->
+      <section id="family" class="devnote-section reveal" tabindex="-1">
+        <h3>A Family Bond</h3>
+        <p>
+          …
+        </p>
+      </section>
+
+      <!-- 5 Our Biggest Enemy -->
+      <section id="enemy" class="devnote-section reveal" tabindex="-1">
+        <h3>Our Biggest Enemy</h3>
+        <p>
+            From the moment we began developing ABYSSAL BLADE, we had obvious limitations. We had the coding part down: my brother planned to code the entire game using Godot Engine. But the rest... that was a different story. I was no artist, no musician, no sound designer, no UI designer. With each passing day, we had to scuff it by, using what we could from the public domain, purchasing assets from itch and using them as references tailored to our vision. But maybe that's just how game development works. Maybe it’s supposed to be scuffed, awkward, and unpredictable until the very end.
+        </p>
+        <p>
+            But there was something more scary than our technical limitations. And that was burnout. About 3 months into rigorous development, we had designed the first 2 bosses, Denial and Anger, of our game while playtesting them with over 25 volunteers. My brother and I were fueled by “new project” adrenaline, working every waking moment on this project, learning new tools and methods. Every. Single. Day. 
+        </p>
+        <p>
+            Eating lunch? No. Eating lunch WHILE chatting on the phone with each other, brainstorming. <br>
+            Going to the gym? No. Going to the gym WHILE listening to Godot tutorial videos and random devlogs. <br>
+            Going to sleep? No. Going to sleep dreaming about boss fight design.            
+        </p>
+        <p>
+            We were both so excited. It was so thrilling seeing our ideas come to life. But such passion could only thrive so long. My brother and I soon hit a very difficult slump. I had winter vacation plans, so I was out of the country for two weeks. And after I came back, neither of us were in the mood to jump back into ABYSSAL BLADE’s development right away. I remember many moments during those weeks, thinking “let’s just give up”. Why grind when I could sit back and enjoy some video games? Why grind when I could go out and hang out with my friends every weekend? Why grind if I could just spend my time on something that just made me feel good 100% of the time?
+        </p>
+        <p>
+            And THAT’s when I realized just how difficult it was to make a game. You could be the most creative, smartest, brightest developer, but if your mind is not there, you can’t move forward. The beginning of development was so exciting as the ideas rushed and flowed... but once the ideas settled and we needed to just hunker down and grind, that's when the burnout crept in. 
+        </p>
+        <p>
+            Maybe it was the back-to-back-to-back weekends of doing nothing else rather than sitting at my desk and drawing art for the game. For my brother, it was the week-after-week, back-to-back sessions where he just sat at his desk for 10-12 hours coding nonstop. It was absolutely brutal. I had many days nonstop of writing and scrapping and rewriting the boss timelines. And then watching hundreds of FFXIV raid videos to gain any glimmer of hope. When FFXIV wouldn't work, I would watch Lost Ark raids, and WoW raids, and that became an endless loop until I figured out what I wanted for the boss timelines. And that process was repeated with every single boss. I never expected it but I was burnt out many times by how much energy “being creative” had required. It felt like I was holding my breath for months, and as each boss's timelines were fleshed out, I got more and more anxious that the next boss wouldn't be as fun or as challenging.
+        </p>
+        <p>
+            Looking back, my brother and I are very lucky to have completed ABYSSAL BLADE. 
+        </p>
+        <p>
+            The lessons learned from dealing with burnout were priceless. And I can only imagine the thousands and thousands of game developers before us that faced what we faced and likely much worse. But like many others, I would never trade this experience for anything else because of how much learning came out of our struggles.
+        </p>
+        <p>
+            I have documented our entire progression for ABYSSAL BLADE in Excel. We also used a Miro board as our common ground for sharing ideas in a more freeflow manner. Please feel free to click the images below to view them.
+        </p>
+
+        <!-- one image at the end of section 5 -->
+        <img class="inline-art" src="/assets/dev-notes-part5.jpg" alt="Concept art – Our Biggest Enemy" loading="lazy">
+        <div class="img-caption">Figure: Our Biggest Enemy</div>
+      </section>
+
+      <!-- 6 Everything Mattered -->
+      <section id="everything" class="devnote-section reveal" tabindex="-1">
+        <h3>Everything Mattered</h3>
+        <p>
+            The development of ABYSSAL BLADE was the journey of two brothers who really wanted to make a game about MMO raiding…
+        </p>
+        <p>
+            is what I wish to say but there is way too much that happened behind the scenes that helped bring this project to life. If I hadn't made my first game back in 2020, I wouldn't have known how to scope out the scale of this project. If my brother hadn't quit his job, he wouldn't have had time to join me. If I hadn't played FFXIV as much as I did, there's no way I would be able to come up with the mechanics and boss timelines for this game. And if I hadn't been a content creator from 2021 to 2024, I wouldn't have met some of the crucial contributors to this project, including my musician, artist, graphic designer, and many of our testers. 
+        </p>
+        <p>
+            And there's so many more things that happened that allowed ABYSSAL BLADE to come to life. Small, seemingly inconsequential things that, in retrospect, definitely made a difference. And it's after all of this that I realized how lucky we are to have made it to the end of our journey.
+        </p>
+        <p>
+            Thank you everyone for reading this and supporting ABYSSAL BLADE. <br>
+            This chapter is now closed but the future is still uncertain. 
+        </p>
+        <p>
+            I hope you can look forward to my next journey.
+        </p>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- Footer (unchanged) -->
+  <footer class="site-footer">
+    <div class="socials">
+      <a href="https://store.steampowered.com/app/3681370"  aria-label="Steam"   target="_blank" rel="noopener"><img src="/assets/icon_steam.svg"   alt=""></a>
+      <a href="https://www.youtube.com/@Vifer"              aria-label="YouTube" target="_blank" rel="noopener"><img src="/assets/icon_youtube.png" alt=""></a>
+      <a href="https://x.com/Vifer_"                        aria-label="X"       target="_blank" rel="noopener"><img src="/assets/icon_x.png"       alt=""></a>
+      <a href="https://discord.com/invite/Xj3YbQprfv"       aria-label="Discord" target="_blank" rel="noopener"><img src="/assets/icon_discord.png" alt=""></a>
+    </div>
+
+    <a href="/press-kit/" class="cta-btn press-kit" target="_blank" rel="noopener">PRESS&nbsp;KIT</a>
+    <img class="footer-logo" src="/assets/logo-resized.png" alt="VIFER GAMES logo">
+    <small class="copyright">All inquiries to vifer.games@gmail.com</small>
+    <small class="copyright">© 2025 VIFER GAMES, ALL RIGHTS RESERVED.</small>
+  </footer>
+
+  <!-- Page JS: ScrollSpy, Smooth scroll, GSAP reveals -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* Smooth-scroll for TOC clicks (default anchors also work thanks to scroll-margin-top) */
+      document.querySelectorAll('.devnotes-toc a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          const target = document.querySelector(id);
+          if (!target) return;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      /* Mobile dropdown jump */
+      const select = document.getElementById('tocSelect');
+      if (select) {
+        select.addEventListener('change', () => {
+          const id = select.value;
+          const el = document.querySelector(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      /* ScrollSpy with IntersectionObserver + URL hash updating */
+      const links = [...document.querySelectorAll('.devnotes-toc a')];
+      const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+
+      function setActive(id){
+        links.forEach(a => {
+          const on = a.getAttribute('href') === id;
+          a.classList.toggle('active', on);
+          a.setAttribute('aria-current', on ? 'true' : 'false');
+        });
+        /* keep mobile select in sync */
+        if (select && select.value !== id) select.value = id;
+        /* update hash without scrolling */
+        if (history.replaceState) {
+          history.replaceState(null, '', id);
+        } else {
+          location.hash = id;
+        }
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActive('#' + entry.target.id);
+          }
+        });
+      }, {
+        /* consider a section active when its top is within upper 40% of viewport */
+        rootMargin: '-40% 0px -55% 0px',
+        threshold: [0, 1]
+      });
+      sections.forEach(s => io.observe(s));
+
+      /* GSAP reveals (optional, matches your existing pattern) */
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.reveal').forEach(el => {
+          gsap.fromTo(el, {opacity:0, y:40}, {
+            opacity:1, y:0, duration:1, ease:'power2.out',
+            scrollTrigger:{ trigger:el, start:'top 85%' }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
