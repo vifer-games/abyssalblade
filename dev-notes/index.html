@@ -196,47 +196,6 @@
     text-align: left;
     }
 
-    /* === Dev Notes: kill global section flex/padding & prevent horizontal overflow === */
-
-    /* 1) Neutralize the global `section{display:flex; padding:8rem}` inside this page */
-    .devnotes-wrapper section {
-    display: block;
-    align-items: initial;
-    justify-content: initial;
-    padding: 0;                 /* remove global 8rem left/right */
-    }
-
-    /* Re-assert your intended card padding */
-    .devnotes-content .devnote-section {
-    padding: 1.5rem 2rem;
-    }
-
-    /* 2) Make sure nothing can exceed the container width */
-    .devnotes-wrapper,
-    .devnotes-content,
-    .devnotes-content .devnote-section {
-    max-width: 100%;
-    }
-
-    /* Images / iframes / videos never overflow horizontally */
-    .devnotes-content img,
-    .devnotes-content video,
-    .devnotes-content iframe {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    }
-
-    /* 3) Break long words/URLs instead of expanding the line */
-    .devnotes-content p,
-    .devnotes-content li {
-    overflow-wrap: anywhere;    /* modern */
-    word-break: break-word;     /* legacy fallback */
-    text-align: left;
-    }
-
-    /* 4) Guardrail: hide any accidental horizontal overflow */
-    html, body { overflow-x: hidden; }
   </style>
 </head>
 
